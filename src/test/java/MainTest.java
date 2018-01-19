@@ -1,13 +1,11 @@
-package java;
-
 import org.junit.jupiter.api.Test;
 
 public class MainTest {
-
     @Test
-    public void test() {
+    void test() {
         //---------------------
 	    // Do stuff here!
 	    //---------------------
+        assert(true);
     }
 }

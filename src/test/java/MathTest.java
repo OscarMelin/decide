@@ -1,11 +1,11 @@
-package java;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class MathTest extends TestCase {
+class MathTest {
     @Test
-    public void testSum(){
-        var math = new Math();
-        org.junit.Assert.assertEqual(5, math.sum(3, 2));
+    void testSum(){
+        Math math = new Math();
+        assertEquals(5, math.sum(3, 2));
     }
 }
