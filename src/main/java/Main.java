@@ -18,7 +18,7 @@ public class Main {
      * @param args main args
      */
     public static void main(String args[]) {
-	new Main();
+	    new Main();
     }
 
 

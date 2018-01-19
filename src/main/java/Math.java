@@ -1,5 +1,3 @@
-package java;
-
 public class Math {
     /**
      *
@@ -8,6 +6,6 @@ public class Math {
      * @return sum of two doubles
      */
     public double sum(double x, double y){
-        return x+y;
+        return x + y;
     }
 }
