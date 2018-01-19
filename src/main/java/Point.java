@@ -6,7 +6,7 @@ public class Point {
     private double y;
 
     /**
-     * Constructor: Creates a planar data point.
+     * Constructor for planar data point.
      * @param x
      * @param y
      */
