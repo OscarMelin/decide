@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-public class MainTest {
+public class AntiMissileSystemTest {
     @Test
     void test() {
         //---------------------
