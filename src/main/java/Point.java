@@ -2,9 +2,9 @@
 public class Point {
 
     // The x coordinate
-    private double x;
+    public double x;
     // The y coordinate
-    private double y;
+    public double y;
 
     /**
      * Constructor for planar data point.
