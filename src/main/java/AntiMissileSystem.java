@@ -81,7 +81,7 @@ public class AntiMissileSystem {
 
     /**
      *
-     * @return whether three consecutive points form an angle grater than PI+epsilon or less than PI-epsilon
+     * @return whether three consecutive points form an angle greater than PI+epsilon or less than PI-epsilon
      */
     public boolean lic2() {
         //Iterate over all three consecutive points
