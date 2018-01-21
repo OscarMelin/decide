@@ -1,8 +1,9 @@
+
 public class Parameters {
 
     // Values used for the different Launch Interceptor Conditions (LIC’s).
-    public double length; // Length in LICs 0, 7, 12
-    public double radius; // Radius in LICs 1, 8, 13
+    public double length1; // Length in LICs 0, 7, 12
+    public double radius1; // Radius in LICs 1, 8, 13
     public double epsilon; // Deviation from PI in LICs 2, 9
     public double area1; // Area in LICs 3, 10, 14
     public int qPts; // No. of consecutive points in LIC 4
@@ -20,5 +21,4 @@ public class Parameters {
     public double length2; // Maximum length in LIC 12
     public double radius2; // Maximum radius in LIC 13
     public double area2; // Maximum area in LIC 14
-
 }
