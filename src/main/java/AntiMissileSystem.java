@@ -1,3 +1,7 @@
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.PI;
+
 
 public class AntiMissileSystem {
 
@@ -95,8 +99,8 @@ public class AntiMissileSystem {
             Point vector2 = new Point(point3.x - point2.x, point3.y - point2.y);
 
             double dotProduct = vector1.x*vector2.x + vector1.y*vector2.y;
-            double vector1Len = Math.sqrt(vector1.x*vector1.x + vector1.y*vector1.y);
-            double vector2Len = Math.sqrt(vector2.x*vector2.x + vector2.y*vector2.y);
+            double vector1Len = sqrt(pow(vector1.x,2) + pow(vector1.y,2));
+            double vector2Len = sqrt(pow(vector2.x,2) + pow(vector2.y,2));
 
             // If any two points coincide then move on
             if(vector1Len == 0 || vector2Len == 0) {
@@ -109,7 +113,7 @@ public class AntiMissileSystem {
             // use the dot product to calculate the angle we'll always get the smaller
             // angle between the two vectors and thus we do not need to check if the angle is
             // greater than PI + epsilon.
-            if(angle < (Math.PI - parameters.epsilon)) {
+            if(angle < (PI - parameters.epsilon)) {
                 return true;
             }
         }
