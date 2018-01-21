@@ -9,9 +9,9 @@ public class AntiMissileSystemTest {
 
         //Example of how you can manipulate the parameters.
         AntiMissileSystem.numPoints = 5;
-        AntiMissileSystem.lcm = new LCMelement[15][15];
-        AntiMissileSystem.lcm[0][0] = LCMelement.NOTUSED;
-        AntiMissileSystem.lcm[0][1] = LCMelement.ANDD;
+        AntiMissileSystem.lcm = new Connector[15][15];
+        AntiMissileSystem.lcm[0][0] = Connector.NOTUSED;
+        AntiMissileSystem.lcm[0][1] = Connector.ANDD;
         AntiMissileSystem test = new AntiMissileSystem();
 
         assert(test.decide() == false);

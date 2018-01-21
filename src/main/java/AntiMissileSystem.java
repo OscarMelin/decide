@@ -13,7 +13,7 @@ public class AntiMissileSystem {
 
     // The Logical Connector Matrix (LCM) is a 15x15 symmetric matrix that
     // defines which individual LIC’s that must be considered jointly in some way.
-    public static LCMelement[][] lcm;
+    public static Connector[][] lcm;
 
     // The Preliminary Unlocking Vector (PUV) represents which LIC actually matters
     // in this particular launch determination.
