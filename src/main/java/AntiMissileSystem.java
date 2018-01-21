@@ -79,7 +79,37 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return whether three consecutive points form an angle grater than PI+epsilon or less than PI-epsilon
+     */
     public boolean lic2() {
+        //Iterate over all three consecutive points
+        for (int index = 0; index < numPoints-3; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index+1];
+            Point point3 = points[index+2];
+
+            // Calculate the two vectors using point 2 as vertex
+            Point vector1 = new Point(point1.x - point2.x, point1.y - point2.y);
+            Point vector2 = new Point(point3.x - point2.x, point3.x - point2.y);
+
+            double dotProduct = vector1.x*vector2.x + vector1.y*vector2.y;
+            double vector1Len = Math.sqrt(vector1.x*vector1.x + vector1.y*vector1.y);
+            double vector2Len = Math.sqrt(vector2.x*vector2.x + vector2.y*vector2.y);
+
+            // If any two points coincide then move on
+            if(vector1Len == 0 || vector2Len == 0) {
+                continue;
+            }
+            // Obtain the angle through the definition of dot product in euclidean space
+            double angle = Math.acos(dotProduct/(vector1Len*vector2Len));
+
+            if(angle < (Math.PI - parameters.epsilon) || angle > (Math.PI + parameters.epsilon)) {
+                return true;
+            }
+        }
+        // No points where found that satisfied the criteria
         return false;
     }
 
