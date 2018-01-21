@@ -84,15 +84,15 @@ public class AntiMissileSystem {
      * @return whether three consecutive points form an angle greater than PI+epsilon or less than PI-epsilon
      */
     public boolean lic2() {
-        //Iterate over all three consecutive points
-        for (int index = 0; index < numPoints-3; index++) {
+        //Iterate over all sets of three consecutive points
+        for (int index = 0; index < numPoints-2; index++) {
             Point point1 = points[index];
             Point point2 = points[index+1];
             Point point3 = points[index+2];
 
             // Calculate the two vectors using point 2 as vertex
             Point vector1 = new Point(point1.x - point2.x, point1.y - point2.y);
-            Point vector2 = new Point(point3.x - point2.x, point3.x - point2.y);
+            Point vector2 = new Point(point3.x - point2.x, point3.y - point2.y);
 
             double dotProduct = vector1.x*vector2.x + vector1.y*vector2.y;
             double vector1Len = Math.sqrt(vector1.x*vector1.x + vector1.y*vector1.y);
@@ -105,7 +105,11 @@ public class AntiMissileSystem {
             // Obtain the angle through the definition of dot product in euclidean space
             double angle = Math.acos(dotProduct/(vector1Len*vector2Len));
 
-            if(angle < (Math.PI - parameters.epsilon) || angle > (Math.PI + parameters.epsilon)) {
+            // Check if the angle is less than PI - epsilon. Note that since we
+            // use the dot product to calculate the angle we'll always get the smaller
+            // angle between the two vectors and thus we do not need to check if the angle is
+            // greater than PI + epsilon.
+            if(angle < (Math.PI - parameters.epsilon)) {
                 return true;
             }
         }
