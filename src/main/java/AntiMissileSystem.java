@@ -4,32 +4,32 @@ public class AntiMissileSystem {
     //------------------ Global Data ------------------
 
     // The number of planar data points. 2 <= NUMPOINTS <= 100
-    public static int numPoints;
+    public int numPoints;
     // Array of planar data points.
-    public static Point[] points;
+    public Point[] points;
 
     // Struct holding parameters for Launch Interceptor Conditions (LIC’s).
-    public static Parameters parameters = new Parameters();
+    public Parameters parameters = new Parameters();
 
     // The Logical Connector Matrix (LCM) is a 15x15 symmetric matrix that
     // defines which individual LIC’s that must be considered jointly in some way.
-    public static Connector[][] lcm;
+    public Connector[][] lcm;
 
     // The Preliminary Unlocking Vector (PUV) represents which LIC actually matters
     // in this particular launch determination.
-    public static boolean[] puv;
+    public boolean[] puv;
 
     // The Conditions Met Vector (CMV) is set according to the results of each LIC.
-    private static boolean[] cmv;
+    private boolean[] cmv;
 
     // The combination of LCM and CMV is stored in the
     // Preliminary Unlocking Matrix (PUM), a 15x15 symmetric matrix.
-    private static boolean[][] pum;
+    private boolean[][] pum;
 
     // The Final Unlocking Vector (FUV) is a 15-element vector.
     // If, and only if, all the values in the FUV are true the launch-unlock
     // signal should be generated.
-    private static boolean[] fuv;
+    private boolean[] fuv;
 
 
     /**
