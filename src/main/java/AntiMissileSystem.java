@@ -13,24 +13,23 @@ public class AntiMissileSystem {
 
     // The Logical Connector Matrix (LCM) is a 15x15 symmetric matrix that
     // defines which individual LIC’s that must be considered jointly in some way.
-    public Connector[][] lcm;
+    public Connector[][] lcm = new Connector[15][15];
 
     // The Preliminary Unlocking Vector (PUV) represents which LIC actually matters
     // in this particular launch determination.
-    public boolean[] puv;
+    public boolean[] puv = new boolean[15];
 
     // The Conditions Met Vector (CMV) is set according to the results of each LIC.
-    private boolean[] cmv;
+    private boolean[] cmv = new boolean[15];
 
     // The combination of LCM and CMV is stored in the
     // Preliminary Unlocking Matrix (PUM), a 15x15 symmetric matrix.
-    private boolean[][] pum;
+    private boolean[][] pum = new boolean[15][15];
 
     // The Final Unlocking Vector (FUV) is a 15-element vector.
     // If, and only if, all the values in the FUV are true the launch-unlock
     // signal should be generated.
-    private boolean[] fuv;
-
+    private boolean[] fuv = new boolean[15];
 
     /**
      * Main method. Do not write anything here to make it easy to test.
@@ -38,17 +37,24 @@ public class AntiMissileSystem {
      * @param args main args
      */
     public static void main(String args[]) {
-        new AntiMissileSystem();
+        //Todo: implement when standard input is provided
     }
 
     /**
-     * Constructor.
-     * DO YOUR STUFF HERE.
+     *
+     * @param numPoints
+     * @param points
+     * @param parameters
+     * @param lcm
+     * @param puv
+     * @return instance of AntiMissileSystem
      */
-    public AntiMissileSystem() {
-        //---------------------
-        // Do stuff here!
-        //---------------------
+    public AntiMissileSystem(int numPoints, Point[] points, Parameters parameters, Connector[][] lcm, boolean[] puv) {
+        this.numPoints = numPoints;
+        this.points = points;
+        this.parameters = parameters;
+        this.lcm = lcm;
+        this.puv = puv;
     }
 
     /**
