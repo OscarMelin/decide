@@ -1,41 +1,35 @@
+
 public class AntiMissileSystem {
-
-    //------------------ Help construction -----------
-
-    // The Logical Connector Matrix (LCM) consists of these types of entries.
-    enum LcmEntry {
-        ANDD, ORR, NOTUSED
-    }
 
     //------------------ Global Data ------------------
 
     // The number of planar data points. 2 <= NUMPOINTS <= 100
-    private int numPoints;
+    public static int numPoints;
     // Array of planar data points.
-    private Point[] points;
+    public static Point[] points;
 
     // Struct holding parameters for Launch Interceptor Conditions (LIC’s).
-    private Parameters parameters;
+    public static Parameters parameters = new Parameters();
 
     // The Logical Connector Matrix (LCM) is a 15x15 symmetric matrix that
     // defines which individual LIC’s that must be considered jointly in some way.
-    private LcmEntry[][] lcm;
-
-    // The Conditions Met Vector (CMV) is set according to the results of each LIC.
-    private boolean[] cmv;
+    public static LCMelement[][] lcm;
 
     // The Preliminary Unlocking Vector (PUV) represents which LIC actually matters
     // in this particular launch determination.
-    private boolean[] puv;
+    public static boolean[] puv;
+
+    // The Conditions Met Vector (CMV) is set according to the results of each LIC.
+    private static boolean[] cmv;
 
     // The combination of LCM and CMV is stored in the
     // Preliminary Unlocking Matrix (PUM), a 15x15 symmetric matrix.
-    private boolean[][] pum;
+    private static boolean[][] pum;
 
     // The Final Unlocking Vector (FUV) is a 15-element vector.
     // If, and only if, all the values in the FUV are true the launch-unlock
     // signal should be generated.
-    private boolean[] fuv;
+    private static boolean[] fuv;
 
 
     /**
