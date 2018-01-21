@@ -9,15 +9,15 @@ public class AntiMissileSystem {
     public Point[] points;
 
     // Struct holding parameters for Launch Interceptor Conditions (LIC’s).
-    public Parameters parameters = new Parameters();
+    public Parameters parameters;
 
     // The Logical Connector Matrix (LCM) is a 15x15 symmetric matrix that
     // defines which individual LIC’s that must be considered jointly in some way.
-    public Connector[][] lcm = new Connector[15][15];
+    public Connector[][] lcm;
 
     // The Preliminary Unlocking Vector (PUV) represents which LIC actually matters
     // in this particular launch determination.
-    public boolean[] puv = new boolean[15];
+    public boolean[] puv;
 
     // The Conditions Met Vector (CMV) is set according to the results of each LIC.
     private boolean[] cmv = new boolean[15];
