@@ -66,6 +66,10 @@ public class AntiMissileSystem {
         return false;
     }
 
+    public void generatePUM() {}
+
+    public void generateFUV() {}
+
 
     public boolean lic0() {
         return false;
