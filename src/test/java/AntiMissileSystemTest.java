@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AntiMissileSystemTest {
 
@@ -16,5 +16,23 @@ public class AntiMissileSystemTest {
         AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, lcm, puv);
 
         assertFalse(antiMissileSystem.decide());
+    }
+
+    @Test
+    void testLic3() {
+        // Contract: Lic3 returns true iff there exists at least one set of three consecutive
+        // data points that are the vertices of a triangle with area greater than AREA1.
+
+        int numPoints = 5;
+        Point[] points = {new Point(1.0,1.0), new Point(1.0,0.0), new Point(0.0,0.0), new Point(-3.0,3.0), new Point(-3.0,0.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints,points,parameters,null,null);
+        assertTrue(testSystem.lic3());
+
+        testSystem.parameters.area1 = 1.0;
+        assertTrue(testSystem.lic3());
+
+        testSystem.parameters.area1 = 5.0;
+        assertFalse(testSystem.lic3());
     }
 }
