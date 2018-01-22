@@ -86,4 +86,28 @@ public class AntiMissileSystemTest {
         testSystem.parameters.area1 = 5.0;
         assertFalse(testSystem.lic3());
     }
+  
+    @Test
+    void testLic10() {
+        // Contract: Lic10 returns true iff there exists at least one set of three data points
+        // separated by exactly E_PTS and F_PTS consecutive intervening points, respectively,
+        // that are the vertices of a triangle with area greater than AREA1.
+        // The condition is not met when NUMPOINTS < 5.
+
+        int numPoints = 4;
+        Point[] points = {new Point(0.0,0.0), new Point(1.0,1.0), new Point(1.0,0.0), new Point(-1.0,-1.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertFalse(testSystem.lic10());
+
+        Point[] newPoints = {new Point(0.0,0.0), new Point(1.0,1.0), new Point(1.0,0.0), new Point(-1.0,-1.0), new Point(1.0,2.0)};
+        testSystem.numPoints++;
+        testSystem.points = newPoints;
+        testSystem.parameters.ePTS = 1;
+        testSystem.parameters.fPTS = 1;
+        assertTrue(testSystem.lic10());
+
+        testSystem.parameters.area1 = 1.0;
+        assertFalse(testSystem.lic10());
+    }
 }

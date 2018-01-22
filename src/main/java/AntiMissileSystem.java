@@ -190,7 +190,38 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return whether there exists at least one set of three data points
+     * separated by exactly E_PTS and F_PTS consecutive intervening points,
+     * respectively, that are the vertices of a triangle with area
+     * greater than AREA1. The condition is not met when NUMPOINTS < 5.
+     */
     public boolean lic10() {
+        if(numPoints < 5) {
+            return false;
+        }
+
+        //Iterate over all sets of three consecutive points separated by E_PTS and F_PTS points
+        for (int index = 0; index < numPoints-2-parameters.ePTS-parameters.fPTS; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index+1+parameters.ePTS];
+            Point point3 = points[index+2+parameters.ePTS+parameters.fPTS];
+
+            // Calculate the sides of the triangle
+            double length1 = sqrt(pow(point1.x-point2.x,2)+pow(point1.y-point2.y,2));
+            double length2 = sqrt(pow(point1.x-point3.x,2)+pow(point1.y-point3.y,2));
+            double length3 = sqrt(pow(point2.x-point3.x,2)+pow(point2.y-point3.y,2));
+
+            // Calculate the area of the triangle using Heron's formula
+            double tmp = (length1+length2+length3)/2;
+            double area = sqrt(tmp*(tmp-length1)*(tmp-length2)*(tmp-length3));
+
+            if(area > parameters.area1) {
+                return true;
+            }
+        }
+        // No points where found that satisfied the criteria
         return false;
     }
 
