@@ -107,7 +107,7 @@ public class AntiMissileSystem {
             b = this.points[i+1];
             c = this.points[i+2];
 
-            // Check if points b or c is inside or on the radius rasius1 away from a
+            // Check if points b or c is inside or on the radius radius1 away from a
             if (pow(b.x - a.x, 2) + pow(b.y - a.y, 2) <= pow(parameters.radius1, 2) ||
                     pow(c.x - a.x, 2) + pow(c.y - a.y, 2) <= pow(parameters.radius1, 2)) {
                 return false;

@@ -85,6 +85,7 @@ public class AntiMissileSystemTest {
         antiMissileSystem.points[1] = new Point(2.0, 1.0);
         antiMissileSystem.points[2] = new Point(3.0, 1.0);
         assertFalse(antiMissileSystem.lic1());
+    }
   
     @Test
     void testLic2() {
