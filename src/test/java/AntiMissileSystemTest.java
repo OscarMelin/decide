@@ -17,7 +17,7 @@ public class AntiMissileSystemTest {
 
         assertFalse(antiMissileSystem.decide());
     }
-
+  
     @Test
     void testLic0() {
         // contract: lic0 returns true if two consecutive data point are a greater distance than the length,

@@ -1,4 +1,3 @@
-
 public class Parameters {
 
     // Values used for the different Launch Interceptor Conditions (LIC’s).
