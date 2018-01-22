@@ -2,7 +2,6 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.PI;
 
-
 public class AntiMissileSystem {
 
     //------------------ Global Data ------------------
@@ -82,7 +81,7 @@ public class AntiMissileSystem {
     public boolean lic1() {
         return false;
     }
-
+  
     /**
      *
      * @return whether three consecutive points form an angle greater than PI+epsilon or less than PI-epsilon
