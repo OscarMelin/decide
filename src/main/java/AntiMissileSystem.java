@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.PI;
@@ -133,12 +135,63 @@ public class AntiMissileSystem {
      */
     public boolean lic4() {
 
-        //Iterate over all sets of three consecutive points
-        for (int index = 0; index < numPoints-2; index++) {
-            Point point1 = points[index];
-            Point point2 = points[index + 1];
-            Point point3 = points[index + 2];
+        // check the boundaries
+        if (parameters.qPts > numPoints || parameters.qPts < 2) {
+            return false;
+        }
 
+        // check the boundaries
+        if (parameters.qUads > 3 || parameters.qUads < 1) {
+            return false;
+        }
+
+        //Point[] consecPoints = new Point[parameters.qPts];
+
+
+        //Iterate over all sets of qPts consecutive points
+        for (int i = 0; i <= numPoints-parameters.qPts; i++) {
+            ArrayList<Point> consecPoints = new ArrayList<Point>();
+            //Iterate qPts steps to gather the set
+            for (int j = i; j < parameters.qPts+i; j++) {
+                consecPoints.add(points[j]);
+            }
+
+            //Keep track of visited quadrants
+            boolean[] diffQuads = new boolean[4];
+
+            for (Point p: consecPoints) {
+                if (p.x >= 0){
+                    if(p.y >= 0){
+                        diffQuads[0] = true;
+                    }
+                    else if (p.x == 0 && p.y < 0){
+                        diffQuads[2] = true;
+                    }
+                    else {
+                        diffQuads[3] = true;
+                    }
+                }
+                else {
+                    if (p.y >= 0) {
+                        diffQuads[1] = true;
+                    }
+                    else {
+                        diffQuads[2] = true;
+                    }
+                }
+                
+            }
+
+            //Did the set lie in more than qUads quadrants?
+            int trueCount = 0;
+            for (int k = 0; k < diffQuads.length; k++) {
+                if (diffQuads[k]) {
+                    trueCount++;
+                }
+                if (trueCount > parameters.qUads) {
+                    return true;
+                }
+            }
         }
 
         return false;

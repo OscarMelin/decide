@@ -1,4 +1,3 @@
-import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static java.lang.Math.PI;
@@ -54,7 +53,7 @@ public class AntiMissileSystemTest {
         AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
         assertTrue(testSystem.lic4());
 
-        parameters.qUads = 3;
+        /*parameters.qUads = 3;
         testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
         assertTrue(testSystem.lic4());
 
@@ -64,7 +63,7 @@ public class AntiMissileSystemTest {
 
         parameters.qPts = 2;
         testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
-        assertFalse(testSystem.lic4());
+        assertFalse(testSystem.lic4());*/
 
     }
 }
