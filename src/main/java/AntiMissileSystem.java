@@ -1,3 +1,6 @@
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.PI;
 
 public class AntiMissileSystem {
 
@@ -107,7 +110,47 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return whether three consecutive points separate by C_PTS and D_PTS consecutive intervening points
+     * form an angle greater than PI+epsilon or less than PI-epsilon.
+     * When NUMPOINTS < 5, the condition is not met.
+     */
     public boolean lic9() {
+        if(numPoints < 5) {
+            return false;
+        }
+
+        //Iterate over all sets of three consecutive points separated by C_PTS and D_PTS points
+        for (int index = 0; index < numPoints-2-parameters.cPTS-parameters.dPTS; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index+1+parameters.cPTS];
+            Point point3 = points[index+2+parameters.cPTS+parameters.dPTS];
+
+            // Calculate the two vectors using point 2 as vertex
+            Point vector1 = new Point(point1.x - point2.x, point1.y - point2.y);
+            Point vector2 = new Point(point3.x - point2.x, point3.y - point2.y);
+
+            double dotProduct = vector1.x*vector2.x + vector1.y*vector2.y;
+            double vector1Len = sqrt(pow(vector1.x,2) + pow(vector1.y,2));
+            double vector2Len = sqrt(pow(vector2.x,2) + pow(vector2.y,2));
+
+            // If any two points coincide then move on
+            if(vector1Len == 0 || vector2Len == 0) {
+                continue;
+            }
+            // Obtain the angle through the definition of dot product in euclidean space
+            double angle = Math.acos(dotProduct/(vector1Len*vector2Len));
+
+            // Check if the angle is less than PI - epsilon. Note that since we
+            // use the dot product to calculate the angle we'll always get the smaller
+            // angle between the two vectors and thus we do not need to check if the angle is
+            // greater than PI + epsilon.
+            if(angle < (PI - parameters.epsilon)) {
+                return true;
+            }
+        }
+        // No points where found that satisfied the criteria
         return false;
     }
 
