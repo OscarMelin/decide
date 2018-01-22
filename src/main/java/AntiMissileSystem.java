@@ -90,8 +90,25 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return true if three consecutive data points are not contained within or on a circle of radius1
+     * defined in the parameters, otherwise false is returned
+     */
     public boolean lic1() {
-        return false;
+        Point a, b, c;
+        for (int i = 0; i < this.points.length - 2; i++) {
+            a = this.points[i];
+            b = this.points[i+1];
+            c = this.points[i+2];
+
+            // Check if points b or c is inside or on the radius rasius1 away from a
+            if (pow(b.x - a.x, 2) + pow(b.y - a.y, 2) <= pow(parameters.radius1, 2) ||
+                    pow(c.x - a.x, 2) + pow(c.y - a.y, 2) <= pow(parameters.radius1, 2)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean lic2() {

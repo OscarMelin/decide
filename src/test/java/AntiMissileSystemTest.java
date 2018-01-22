@@ -24,11 +24,11 @@ public class AntiMissileSystemTest {
         // false otherwise
         int numPoints = 5;
         Point[] points = {
-                new Point(0, 0),
-                new Point(1, 1),
-                new Point(3, 5),
-                new Point(10, 10),
-                new Point(20, 20)
+                new Point(0.0, 0.0),
+                new Point(1.0, 1.0),
+                new Point(3.0, 5.0),
+                new Point(10.0, 10.0),
+                new Point(20.0, 20.0)
         };
         Parameters parameters = new Parameters();
         AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
@@ -46,5 +46,43 @@ public class AntiMissileSystemTest {
 
         antiMissileSystem.parameters.length1 = 20;
         assertFalse(antiMissileSystem.lic0());
+    }
+
+    @Test
+    void testLic1() {
+        // contract: lic1 returns true if three consecutive data point are not all contained within or on a circle
+        // of radius radius1, false otherwise
+        int numPoints = 3;
+        Point[] points = {
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0),
+                new Point(-1.0, 0.0)
+        };
+
+        Parameters parameters = new Parameters();
+        AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+
+        assertTrue(antiMissileSystem.lic1());
+
+        antiMissileSystem.parameters.radius1 = 1; // should fail since b and c are in the distance radius 1 from a
+        assertFalse(antiMissileSystem.lic1());
+
+        // Assigning new points where all points are outside the circle with radius radius1
+        antiMissileSystem.points[0] = new Point(1.0, 1.0);
+        antiMissileSystem.points[1] = new Point(3.0, 1.0);
+        antiMissileSystem.points[2] = new Point(2.0, 2.0);
+        assertTrue(antiMissileSystem.lic1());
+
+        // Assigning new points where only the second one is inside or on the circle with radius radius1
+        antiMissileSystem.points[0] = new Point(1.0, 1.0);
+        antiMissileSystem.points[1] = new Point(3.0, 1.0);
+        antiMissileSystem.points[2] = new Point(2.0, 1.0);
+        assertFalse(antiMissileSystem.lic1());
+
+        // Assigning new points where only the second one is inside or on the circle with radius radius1
+        antiMissileSystem.points[0] = new Point(1.0, 1.0);
+        antiMissileSystem.points[1] = new Point(2.0, 1.0);
+        antiMissileSystem.points[2] = new Point(3.0, 1.0);
+        assertFalse(antiMissileSystem.lic1());
     }
 }
