@@ -8,6 +8,7 @@ public class AntiMissileSystem {
 
     // The number of planar data points. 2 <= NUMPOINTS <= 100
     public int numPoints;
+
     // Array of planar data points.
     public Point[] points;
 
@@ -124,7 +125,22 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return true iff there exists at least one set of Q_PTS consecutive
+     * data points thet lie in more than QUADS quadrants.
+     * 2 <= Q_PTS <= NUMPOINTS , 1 <= QUADS <= 3
+     */
     public boolean lic4() {
+
+        //Iterate over all sets of three consecutive points
+        for (int index = 0; index < numPoints-2; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index + 1];
+            Point point3 = points[index + 2];
+
+        }
+
         return false;
     }
 

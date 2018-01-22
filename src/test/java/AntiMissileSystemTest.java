@@ -1,3 +1,4 @@
+import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static java.lang.Math.PI;
@@ -37,5 +38,33 @@ public class AntiMissileSystemTest {
 
         testSystem.parameters.epsilon = PI*0.50; // Epsilon is 90 degrees (measured in radians)
         assertFalse(testSystem.lic2());
+    }
+
+    @Test
+    void testLic4() {
+        // Contract: Lic4 returns true iff there exists at least one set of
+        // Q_PTS consecutive data points that lie in more than QUADS quadrants.
+
+        int numPoints = 4;
+        Point[] points = {new Point(1.0, 1.0), new Point(1.0, -1.0), new Point(-1.0, 1.0), new Point(-1.0, -1.0)};
+        Parameters parameters = new Parameters();
+
+        parameters.qPts = 2;
+        parameters.qUads = 2;
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertTrue(testSystem.lic4());
+
+        parameters.qUads = 3;
+        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertTrue(testSystem.lic4());
+
+        parameters.qPts = numPoints;
+        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertTrue(testSystem.lic4());
+
+        parameters.qPts = 2;
+        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertFalse(testSystem.lic4());
+
     }
 }
