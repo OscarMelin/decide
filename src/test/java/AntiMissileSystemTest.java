@@ -47,7 +47,8 @@ public class AntiMissileSystemTest {
 
         antiMissileSystem.parameters.length1 = 20;
         assertFalse(antiMissileSystem.lic0());
-
+    }
+  
     @Test
     void testLic2() {
         // Contract: Lic2 returns true iff there exists a set of three consecutive
@@ -66,5 +67,23 @@ public class AntiMissileSystemTest {
 
         testSystem.parameters.epsilon = PI*0.50; // Epsilon is 90 degrees (measured in radians)
         assertFalse(testSystem.lic2());
+    }
+
+    @Test
+    void testLic3() {
+        // Contract: Lic3 returns true iff there exists at least one set of three consecutive
+        // data points that are the vertices of a triangle with area greater than AREA1.
+
+        int numPoints = 5;
+        Point[] points = {new Point(1.0,1.0), new Point(1.0,0.0), new Point(0.0,0.0), new Point(-3.0,3.0), new Point(-3.0,0.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints,points,parameters,null,null);
+        assertTrue(testSystem.lic3());
+
+        testSystem.parameters.area1 = 1.0;
+        assertTrue(testSystem.lic3());
+
+        testSystem.parameters.area1 = 5.0;
+        assertFalse(testSystem.lic3());
     }
 }
