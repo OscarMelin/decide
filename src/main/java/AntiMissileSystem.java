@@ -73,8 +73,25 @@ public class AntiMissileSystem {
 
     public void generateFUV() {}
 
-
+    /**
+     *
+     * @return true if two consecutive data points are a distance greater than the length1 defined in the parameters,
+     * else false is returned
+     */
     public boolean lic0() {
+        Point a, b;
+        for (int i = 0; i < this.points.length - 1; i++) {
+            a = this.points[i];
+            b = this.points[i+1];
+
+            // Calculate the distance between point a and b
+            double distance = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
+
+            // Check if the distance is greater than length1 in the parameters
+            if (distance > parameters.length1) {
+                return true;
+            }
+        }
         return false;
     }
 
