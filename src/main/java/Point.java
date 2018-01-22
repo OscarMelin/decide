@@ -1,3 +1,4 @@
+
 public class Point {
 
     // The x coordinate
