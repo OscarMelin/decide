@@ -20,8 +20,8 @@ public class AntiMissileSystemTest {
 
     @Test
     void testLic0() {
-        // contract: lic0 returns true if two consecutive data point are a greater distance than the length,
-        // false otherwise
+        // contract: lic0 returns true if two consecutive data point are a greater distance than the length length1
+        // defined in the parameters, false otherwise
         int numPoints = 5;
         Point[] points = {
                 new Point(0, 0),
