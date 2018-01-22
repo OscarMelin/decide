@@ -1,5 +1,6 @@
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
+import static java.lang.Math.PI;
 
 public class AntiMissileSystem {
 
@@ -82,7 +83,11 @@ public class AntiMissileSystem {
         for (int i = 0; i < this.points.length - 1; i++) {
             a = this.points[i];
             b = this.points[i+1];
+
+            // Calculate the distance between point a and b
             double distance = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
+
+            // Check if the distance is greater than length1 in the parameters
             if (distance > parameters.length1) {
                 return true;
             }
@@ -110,12 +115,71 @@ public class AntiMissileSystem {
         }
         return true;
     }
-
+  
+    /**
+     *
+     * @return whether three consecutive points form an angle greater than PI+epsilon or less than PI-epsilon
+     */
     public boolean lic2() {
+        //Iterate over all sets of three consecutive points
+        for (int index = 0; index < numPoints-2; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index+1];
+            Point point3 = points[index+2];
+
+            // Calculate the two vectors using point 2 as vertex
+            Point vector1 = new Point(point1.x - point2.x, point1.y - point2.y);
+            Point vector2 = new Point(point3.x - point2.x, point3.y - point2.y);
+
+            double dotProduct = vector1.x*vector2.x + vector1.y*vector2.y;
+            double vector1Len = sqrt(pow(vector1.x,2) + pow(vector1.y,2));
+            double vector2Len = sqrt(pow(vector2.x,2) + pow(vector2.y,2));
+
+            // If any two points coincide then move on
+            if(vector1Len == 0 || vector2Len == 0) {
+                continue;
+            }
+            // Obtain the angle through the definition of dot product in euclidean space
+            double angle = Math.acos(dotProduct/(vector1Len*vector2Len));
+
+            // Check if the angle is less than PI - epsilon. Note that since we
+            // use the dot product to calculate the angle we'll always get the smaller
+            // angle between the two vectors and thus we do not need to check if the angle is
+            // greater than PI + epsilon.
+            if(angle < (PI - parameters.epsilon)) {
+                return true;
+            }
+        }
+        // No points where found that satisfied the criteria
         return false;
     }
-
+  
+    /**
+     *
+     * @return whether there exists a set of three consecutive points that are the vertices of a triangle
+     * with area greater than parameters.area1
+     */
     public boolean lic3() {
+        //Iterate over all sets of three consecutive points
+        for (int index = 0; index < numPoints-2; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index+1];
+            Point point3 = points[index+2];
+
+            // Calculate the sides of the triangle
+            double length1 = sqrt(pow(point1.x-point2.x,2)+pow(point1.y-point2.y,2));
+            double length2 = sqrt(pow(point1.x-point3.x,2)+pow(point1.y-point3.y,2));
+            double length3 = sqrt(pow(point2.x-point3.x,2)+pow(point2.y-point3.y,2));
+
+            // Calculate the area of the triangle using Heron's formula
+            double tmp = (length1+length2+length3)/2;
+            double area = sqrt(tmp*(tmp-length1)*(tmp-length2)*(tmp-length3));
+
+            if(area > parameters.area1) {
+                return true;
+            }
+        }
+        // No points where found that satisfied the criteria
         return false;
     }
 
