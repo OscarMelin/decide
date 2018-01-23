@@ -386,10 +386,10 @@ public class AntiMissileSystem {
 
     /**
      *
-     * @return whether there exists a set of two points separated by K_PTS points
+     * @return whether there exists a set of two points separated by K_PTS consecutive points
      * such that the distance between the points are greater than LENGTH1 and there
-     * exists a set of two points (might be the same as the first set) separated by K_PTS
-     * points such that the distance between the points is less than LENGTH2. The lic is
+     * exists a set of two points (might be the same as the first set) also separated by K_PTS
+     * consecutive points such that the distance between the points is less than LENGTH2. The lic is
      * not met if NUMPOINTS < 3.
      */
     public boolean lic12() {
