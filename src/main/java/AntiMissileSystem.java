@@ -98,7 +98,41 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return true if three consecutive data points are not contained within or on a circle of radius1
+     * defined in the parameters, otherwise false is returned
+     */
     public boolean lic1() {
+        if (parameters.radius1 < 0) {
+            return false;
+        }
+
+        Point a, b, c;
+        for (int i = 0; i < this.points.length - 2; i++) {
+            a = this.points[i];
+            b = this.points[i+1];
+            c = this.points[i+2];
+
+            // Length between point a and b
+            double lengthAB = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+            double lengthAC = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+            double lengthBC = sqrt(pow(b.x - c.x, 2) + pow(b.y - c.y, 2));
+
+            // Calculating the radius of the circumcircle
+            double multipliedLengths = lengthAB * lengthAC * lengthBC;
+            double multipliedLengthDiffs =
+                    (lengthAB + lengthAC + lengthBC) *
+                    (lengthAB + lengthAC - lengthBC) *
+                    (lengthAC + lengthBC - lengthAB) *
+                    (lengthBC + lengthAB - lengthAC);
+            double radius = multipliedLengths / sqrt(multipliedLengthDiffs);
+
+            // Check if points b or c is inside or on the radius radius1 away from a
+            if (radius > parameters.radius1) {
+                return true;
+            }
+        }
         return false;
     }
   
