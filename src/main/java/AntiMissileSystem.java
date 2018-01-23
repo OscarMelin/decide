@@ -276,6 +276,21 @@ public class AntiMissileSystem {
     }
 
     public boolean lic7() {
+        if (numPoints < 3) {
+            return false;
+        }
+
+        for (int index = 0; index < numPoints - 1 - parameters.kPTS; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index + 1 + parameters.kPTS];
+
+            // Calculate the distance between the two points
+            double distance = sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
+
+            if(distance > parameters.length1) {
+                return true;
+            }
+        }
         return false;
     }
 
