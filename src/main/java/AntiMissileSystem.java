@@ -267,7 +267,21 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return true iff there exists at least one set of two consecutive
+     * data points where X[j] - X[i] < 0. (where i = j-1)
+     */
     public boolean lic5() {
+        Point i, j;
+        for (int index = 0; index < this.points.length - 1; index++) {
+            i = this.points[index];
+            j = this.points[index+1];
+
+            if ((j.x - i.x) < 0){
+                return true;
+            }
+        }
         return false;
     }
 
