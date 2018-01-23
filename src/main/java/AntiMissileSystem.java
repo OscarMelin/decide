@@ -560,7 +560,7 @@ public class AntiMissileSystem {
         double r = multipliedLengths / sqrt(multipliedLengthDiffs);
 
         // Check if points b or c is inside or on the radius radius1 away from a
-        if (r < radius)
+        if (r <= radius)
             return true;
         return false;
     }
