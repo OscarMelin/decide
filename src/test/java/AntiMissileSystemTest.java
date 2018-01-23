@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -421,5 +422,36 @@ public class AntiMissileSystemTest {
         antiMissileSystem.parameters.area1 = 0.5;
         antiMissileSystem.parameters.area2 = 3;
         assertTrue(antiMissileSystem.lic14());
+    }
+
+    @Test
+    void testPopulateCMV() {
+        // Contract: global variable cmv gets populated with boolean values.
+        Parameters parameters = new Parameters();
+        int numPoints = 5;
+        Point[] points = {
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0),
+                new Point(2.0, 0.0),
+                new Point(3.0, 0.0),
+                new Point(3.0, 3.0)
+        };
+        AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        antiMissileSystem.parameters.radius1 = 1;
+        antiMissileSystem.parameters.radius2 = 10;
+        antiMissileSystem.parameters.aPTS = 0;
+        antiMissileSystem.parameters.bPTS = 0;
+        antiMissileSystem.parameters.ePTS = 1;
+        antiMissileSystem.parameters.fPTS = 1;
+        antiMissileSystem.parameters.area2 = 2;
+
+        for (int i = 0; i < 15; i++) {
+            assertFalse(antiMissileSystem.cmv[i]);
+        }
+
+        antiMissileSystem.populateCMV();
+
+        boolean[] bosse = {true, true, true, true, false, false, false, true, false, true, true, false, false, true, false};
+        assertArrayEquals(antiMissileSystem.cmv, bosse);
     }
 }
