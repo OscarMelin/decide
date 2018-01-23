@@ -36,25 +36,32 @@ The anti-ballistic system has been tested using happy path tests, all of which c
 - **Johannes Westlund**
   - Helped create the skeleton for the project.
   - Implemented the requirements of LIC 2.
-  - Implemented the requirements of LIC 3
-  - Implemented the requirements of LIC 9
-  - Implemented the requirements of LIC 10
-  - Implemented the requirements of LIC 11
-  - Implemented the requirements of LIC 12
+  - Implemented the requirements of LIC 3.
+  - Implemented the requirements of LIC 9.
+  - Implemented the requirements of LIC 10.
+  - Implemented the requirements of LIC 11.
+  - Implemented the requirements of LIC 12.
 
 - **Kai Böhrnsen**
    - Helped create the skeleton for the project.
    - Implemented the setup of Maven as the build tool.
-   - Implemented the requirements of LIC 0
-   - Implemented the requirements of LIC 1
-   - Implemented the requirements of LIC 14
+   - Implemented the requirements of LIC 0.
+   - Implemented the requirements of LIC 1.
+   - Implemented the requirements of LIC 14.
 
 - **Sara Ervik**
    - Helped create the skeleton for the project.
    - Set up Slack channel for communication.
-   - Implemented the requirements of LIC 5
-   - Implemented the requirements of LIC 6
-   - Implemented the requirements of LIC 7
+   - Implemented the requirements of LIC 5.
+   - Implemented the requirements of LIC 6.
+   - Implemented the requirements of LIC 7.
+   
+- **Madeleine Berner**
+   - Helped create the skeleton for the project.
+   - Created Wiki on GitHub.
+   - Created How-we-code in Wiki.
+   - Implemented the requirements of LIC 4.
+   - Implemented the requirements of LIC 8.
   
 For more detailed information see [closed issues](https://github.com/OscarMelin/decide/issues?q=is%3Aissue+is%3Aclosed).
 
