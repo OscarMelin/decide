@@ -176,7 +176,6 @@ public class AntiMissileSystem {
      * 2 <= Q_PTS <= NUMPOINTS , 1 <= QUADS <= 3
      */
     public boolean lic4() {
-
         // check the boundaries
         if (parameters.qPts > numPoints || parameters.qPts < 2) {
             return false;
@@ -218,7 +217,6 @@ public class AntiMissileSystem {
                         diffQuads[2] = true;
                     }
                 }
-                
             }
 
             //Did the set lie in more than qUads quadrants?
@@ -232,7 +230,6 @@ public class AntiMissileSystem {
                 }
             }
         }
-
         return false;
     }
 
