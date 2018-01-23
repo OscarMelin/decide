@@ -28,11 +28,11 @@ public class AntiMissileSystemTest {
         // defined in the parameters, false otherwise
         int numPoints = 5;
         Point[] points = {
-                new Point(0, 0),
-                new Point(1, 1),
-                new Point(3, 5),
-                new Point(10, 10),
-                new Point(20, 20)
+                new Point(0.0, 0.0),
+                new Point(1.0, 1.0),
+                new Point(3.0, 5.0),
+                new Point(10.0, 10.0),
+                new Point(20.0, 20.0)
         };
         Parameters parameters = new Parameters();
         AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
@@ -50,6 +50,40 @@ public class AntiMissileSystemTest {
 
         antiMissileSystem.parameters.length1 = 20;
         assertFalse(antiMissileSystem.lic0());
+    }
+  
+    @Test
+    void testLic1() {
+        // contract: lic1 returns true if three consecutive data point are not all contained within or on a circle
+        // of radius radius1, false otherwise
+
+        int numPoints = 3;
+        Point[] points = {
+                new Point(-1.0, 0.0),
+                new Point(0.0, 1.0),
+                new Point(1.0, 0.0)
+        };
+
+        Parameters parameters = new Parameters();
+        AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+
+        assertTrue(antiMissileSystem.lic1());
+
+        antiMissileSystem.parameters.radius1 = -1; // negative radius1 is not allowed
+        assertFalse(antiMissileSystem.lic1());
+
+        antiMissileSystem.parameters.radius1 = 1.5; // should fail
+        assertFalse(antiMissileSystem.lic1());
+
+        // Assigning new points where all points are outside the circle with radius radius1
+        antiMissileSystem.points[0] = new Point(-2.0, 0.0);
+        antiMissileSystem.points[1] = new Point(0.0, 2.0);
+        antiMissileSystem.points[2] = new Point(2.0, 0.0);
+        assertTrue(antiMissileSystem.lic1());
+
+        // A radius of 10 should return false
+        antiMissileSystem.parameters.radius1 = 10;
+        assertFalse(antiMissileSystem.lic1());
     }
   
     @Test
@@ -204,5 +238,46 @@ public class AntiMissileSystemTest {
         c = new Point(1,1);
         radius = 0.1;
         assertFalse(testSystem.inCircle(a, b, c, radius));
+    }
+  
+    @Test
+    void testLic11() {
+        // Contract: Lic11 returns true iff there exists a set of two data points, (X[i],Y[i]) and (X[j],Y[j]),
+        // separated by exactly G_PTS consecutive intervening points, such that X[j] - X[i] < 0 (where i < j ).
+        // The condition is not met when NUMPOINTS < 3.
+
+        int numpoints = 2;
+        Point[] points = {new Point(0.0,0.0), new Point(1.0,1.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numpoints,points,parameters,null,null);
+        assertFalse(testSystem.lic11());
+
+        testSystem.numPoints++;
+        Point[] newPoints = {new Point(0.0,0.0), new Point(1.0,1.0), new Point(-1.0,323434.4)};
+        testSystem.points = newPoints;
+        testSystem.parameters.gPTS = 1;
+        assertTrue(testSystem.lic11());
+    }
+  
+    @Test
+    void testLic12() {
+        // Contract: Lic 12 returns true iff there exists a set of two points separated by K_PTS consecutive
+        // intervening points such that the distance between the points is greater than LENGTH1 and there exists
+        // a set of two points (possible the same set as previously mentioned) separated by K_PTS consecutive
+        // intervening points such that the distance between the points is less than LENGTH2.
+        // Lic 12 returns false if NUMPOINTS < 3.
+        int numPoints = 2;
+        Point[] points = {new Point(0.0,0.0), new Point(1.0,1.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints,points,parameters,null,null);
+        assertFalse(testSystem.lic12());
+
+        testSystem.numPoints++;
+        Point[] newPoints = {new Point(0.0,0.0), new Point(5.0,0.0), new Point(3.0,0.0)};
+        testSystem.points = newPoints;
+        testSystem.parameters.kPTS = 1;
+        testSystem.parameters.length1 = 2.0;
+        testSystem.parameters.length2 = 5.0;
+        assertTrue(testSystem.lic12());
     }
 }
