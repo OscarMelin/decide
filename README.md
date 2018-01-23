@@ -34,7 +34,13 @@ The anti-ballistic system has been tested using happy path tests, all of which c
   - Implemented the requirements of LIC 10
   - Implemented the requirements of LIC 11
   - Implemented the requirements of LIC 12
-
+  
+- **Sara Ervik**
+  - Helped create the skeleton for the project.
+  - Set up Slack channel for communication.
+  - Implemented the requirements of LIC 5
+  - Implemented the requirements of LIC 6
+  - Implemented the requirements of LIC 7
 
 ### Abbreviations
 
