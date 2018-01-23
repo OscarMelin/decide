@@ -88,8 +88,6 @@ public class AntiMissileSystem {
         cmv[12] = lic12();
         cmv[13] = lic13();
         cmv[14] = lic14();
-
-        return;
     }
 
     public void generatePUM() {}
