@@ -343,4 +343,57 @@ public class AntiMissileSystem {
     public boolean lic14() {
         return false;
     }
+
+    /**
+     *
+     * @param a
+     * @param b
+     * @param c
+     * @return true if all three points can be contained in a circle.
+     */
+    boolean inCircle(Point a, Point b, Point c, double radius) {
+        double q, x3, y3, basex, basey, centerx1, centerx2, centery1, centery2, d1, d2;
+        // Get lengths between points.
+        double ab = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+        double ac = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+        double bc = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+
+        // If all points are identical
+        if (ab == 0 && ac == 0) {
+            System.out.println("Identical!");
+            return true;
+        }
+
+        Point x, y, z;
+        for (int i = 0; i < 3; i++) {
+            x = a;
+            y = b;
+            z = c;
+            if (i == 1) {
+                x = a;
+                y = c;
+                z = b;
+            } else if (i == 2) {
+                x = b;
+                y = c;
+                z = a;
+            }
+
+            q = sqrt(pow((y.x - x.x), 2) + pow((y.y - x.y),2));
+            y3 = (y.x + y.y) / 2;
+            x3 = (x.x + x.y) / 2;
+            basex = sqrt(pow(radius, 2) - pow((q / 2), 2)) * (y.x - y.y) / q; //calculate once
+            basey = sqrt(pow(radius, 2) - pow((q / 2), 2)) * (x.y - x.x) / q; //calculate once
+            centerx1 = x3 + basex; //center x of circle 1
+            centery1 = y3 + basey; //center y of circle 1
+            centerx2 = x3 - basex; //center x of circle 2
+            centery2 = y3 - basey; //center y of circle 2
+            d1 = sqrt(pow(centerx1 - z.x, 2) + pow(centery1 - z.y, 2));
+            d2 = sqrt(pow(centerx2 - z.x, 2) + pow(centery2 - z.y, 2));
+
+            if ((d1 <= radius) || (d1 <= radius))
+                return true;
+        }
+        return false;
+    }
 }
