@@ -172,7 +172,7 @@ public class AntiMissileSystem {
     /**
      *
      * @return true iff there exists at least one set of Q_PTS consecutive
-     * data points thet lie in more than QUADS quadrants.
+     * data points that lie in more than QUADS quadrants.
      * 2 <= Q_PTS <= NUMPOINTS , 1 <= QUADS <= 3
      */
     public boolean lic4() {
