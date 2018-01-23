@@ -288,7 +288,12 @@ public class AntiMissileSystem {
     public boolean lic6() {
         return false;
     }
-
+    /**
+     *
+     * @return true iff there exists at least one set of two data points
+     * separated by exactly K PTS consecutive intervening points that are
+     * a distance greater than the length, LENGTH1, apart
+     */
     public boolean lic7() {
         if (numPoints < 3) {
             return false;
