@@ -318,6 +318,45 @@ public class AntiMissileSystemTest {
     }
 
     @Test
+    void testLic13() {
+        // Contract: Lic13 return true if there exists at least one set of three data points, separated by exactly A PTS
+        // and B PTS consecutive intervening points, respectively, that cannot be contained within or on a circle of
+        // radius RADIUS1.
+        //
+        // In addition, there exists at least one set of three data points (which can be the same or different from the three
+        // data points just mentioned) separated by exactly A PTS and B PTS consecutive intervening points, respectively,
+        // that can be contained in or on a circle of radius RADIUS2.
+        //
+        // Both parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5. 0 ≤ RADIUS2.
+
+        int numPoints = 4;
+        Point[] points = {
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0),
+                new Point(2.0, 0.0),
+                new Point(3.0, 0.0),
+                new Point(3.0, 3.0)
+        };
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertFalse(testSystem.lic13());
+
+        testSystem.parameters.radius2 = 0;
+        testSystem.numPoints = 5;
+        assertFalse(testSystem.lic13());
+
+        testSystem.parameters.radius1 = 10;
+        testSystem.parameters.radius2 = 1;
+        testSystem.parameters.aPTS = 0;
+        testSystem.parameters.bPTS = 0;
+        assertFalse(testSystem.lic13());
+
+        testSystem.parameters.radius1 = 1;
+        testSystem.parameters.radius2 = 10;
+        assertTrue(testSystem.lic13());
+    }
+
+    @Test
     void testLic14() {
         // Contract: Lic14 returns true iff there exists at least one set of three data points
         // separated by exactly E_PTS and F_PTS consecutive intervening points, respectively,
