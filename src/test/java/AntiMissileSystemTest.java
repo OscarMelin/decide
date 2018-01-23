@@ -1,10 +1,8 @@
-
 import org.junit.jupiter.api.Test;
 
 import static java.lang.Math.PI;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 public class AntiMissileSystemTest {
 
