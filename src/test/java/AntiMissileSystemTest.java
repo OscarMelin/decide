@@ -200,7 +200,6 @@ public class AntiMissileSystemTest {
         assertFalse(testSystem.lic10());
     }
   
-    @Test
     void testLic11() {
         // Contract: Lic11 returns true iff there exists a set of two data points, (X[i],Y[i]) and (X[j],Y[j]),
         // separated by exactly G_PTS consecutive intervening points, such that X[j] - X[i] < 0 (where i < j ).
@@ -217,5 +216,27 @@ public class AntiMissileSystemTest {
         testSystem.points = newPoints;
         testSystem.parameters.gPTS = 1;
         assertTrue(testSystem.lic11());
+    }
+  
+    @Test
+    void testLic12() {
+        // Contract: Lic 12 returns true iff there exists a set of two points separated by K_PTS consecutive
+        // intervening points such that the distance between the points is greater than LENGTH1 and there exists
+        // a set of two points (possible the same set as previously mentioned) separated by K_PTS consecutive
+        // intervening points such that the distance between the points is less than LENGTH2.
+        // Lic 12 returns false if NUMPOINTS < 3.
+        int numPoints = 2;
+        Point[] points = {new Point(0.0,0.0), new Point(1.0,1.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints,points,parameters,null,null);
+        assertFalse(testSystem.lic12());
+
+        testSystem.numPoints++;
+        Point[] newPoints = {new Point(0.0,0.0), new Point(5.0,0.0), new Point(3.0,0.0)};
+        testSystem.points = newPoints;
+        testSystem.parameters.kPTS = 1;
+        testSystem.parameters.length1 = 2.0;
+        testSystem.parameters.length2 = 5.0;
+        assertTrue(testSystem.lic12());
     }
 }
