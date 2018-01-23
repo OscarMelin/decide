@@ -544,6 +544,11 @@ public class AntiMissileSystem {
         // If all points are identical
         if (lengthAB == 0 && lengthAC == 0)
             return true;
+        // If points form a line
+        if ((a.y - b.y) * (a.x - c.x) == (a.y - c.y) * (a.x - b.x)) {
+            if (lengthAB <= radius && lengthAC <= radius && lengthBC <= radius)
+                return true;
+        }
 
         // Calculating the radius of the circumcircle
         double multipliedLengths = lengthAB * lengthAC * lengthBC;
