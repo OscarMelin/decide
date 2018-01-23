@@ -274,6 +274,12 @@ public class AntiMissileSystemTest {
         c = new Point(1,1);
         radius = 0.1;
         assertFalse(testSystem.inCircle(a, b, c, radius));
+
+        a = new Point(0,0);
+        b = new Point(1,1);
+        c = new Point(2,2);
+        radius = 10;
+        assertTrue(testSystem.inCircle(a, b, c, radius));
     }
   
     @Test
