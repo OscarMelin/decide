@@ -362,7 +362,25 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return whether there exists a set of two data points, (X[i],Y[i]) and (X[j],Y[j]), separated by exactly
+     * G_PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+     * The condition is not met when NUMPOINTS < 3.
+     */
     public boolean lic11() {
+        if(numPoints < 3) {
+            return false;
+        }
+
+        for(int index = 0; index < numPoints-1-parameters.gPTS; index++) {
+            Point point1 = points[index];
+            Point point2 = points[index+1+parameters.gPTS];
+
+            if(point2.x - point1.x < 0.0) {
+                return true;
+            }
+        }
         return false;
     }
 
