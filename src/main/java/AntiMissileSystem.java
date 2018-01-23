@@ -472,4 +472,36 @@ public class AntiMissileSystem {
         }
         return false;
     }
+
+    /**
+     *
+     * @param a
+     * @param b
+     * @param c
+     * @return true if all three points can be contained in a circle.
+     */
+    boolean inCircle(Point a, Point b, Point c, double radius) {
+        // Length between point a and b
+        double lengthAB = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+        double lengthAC = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+        double lengthBC = sqrt(pow(b.x - c.x, 2) + pow(b.y - c.y, 2));
+
+        // If all points are identical
+        if (lengthAB == 0 && lengthAC == 0)
+            return true;
+
+        // Calculating the radius of the circumcircle
+        double multipliedLengths = lengthAB * lengthAC * lengthBC;
+        double multipliedLengthDiffs =
+            (lengthAB + lengthAC + lengthBC) *
+            (lengthAB + lengthAC - lengthBC) *
+            (lengthAC + lengthBC - lengthAB) *
+            (lengthBC + lengthAB - lengthAC);
+        double r = multipliedLengths / sqrt(multipliedLengthDiffs);
+
+        // Check if points b or c is inside or on the radius radius1 away from a
+        if (r < radius)
+            return true;
+        return false;
+    }
 }

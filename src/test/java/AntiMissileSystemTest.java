@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import static java.lang.Math.PI;
+import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -200,6 +201,45 @@ public class AntiMissileSystemTest {
         assertFalse(testSystem.lic10());
     }
 
+    @Test
+    void testinCircle() {
+        // Contract: inCircle() returns true if points a, b and c can be contained in a circle with radius 'radius'.
+        int numPoints = 0;
+        Point[] points = {};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+
+        Point a = new Point(0,0);
+        Point b = new Point(0,0);
+        Point c = new Point(0,0);
+        double radius = 1;
+        assertTrue(testSystem.inCircle(a, b, c, radius));
+
+        a = new Point(0,0);
+        b = new Point(0,1);
+        c = new Point(1,0);
+        radius = 0.5;
+        assertFalse(testSystem.inCircle(a, b, c, radius));
+
+        a = new Point(0,0);
+        b = new Point(0,1);
+        c = new Point(1,1);
+        radius = sqrt(2);
+        assertTrue(testSystem.inCircle(a, b, c, radius));
+
+        a = new Point(-1,0);
+        b = new Point(0,0);
+        c = new Point(1,1);
+        radius = 0;
+        assertFalse(testSystem.inCircle(a, b, c, radius));
+
+        a = new Point(-1,0);
+        b = new Point(0,0);
+        c = new Point(1,1);
+        radius = 0.1;
+        assertFalse(testSystem.inCircle(a, b, c, radius));
+    }
+  
     @Test
     void testLic11() {
         // Contract: Lic11 returns true iff there exists a set of two data points, (X[i],Y[i]) and (X[j],Y[j]),
