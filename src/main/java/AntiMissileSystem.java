@@ -285,7 +285,18 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return true iff there exists at least one set of N PTS consecutive data points
+     * such that at least one of the points lies a distance greater than DIST from the
+     * line joining the first and last of these N PTS points
+     * When NUMPOINTS < 3, the condition is not met.
+     *
+     */
     public boolean lic6() {
+        if (numPoints < 3) {
+            return false;
+        }
         return false;
     }
     /**
