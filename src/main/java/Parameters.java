@@ -20,5 +20,4 @@ public class Parameters {
     public double length2; // Maximum length in LIC 12
     public double radius2; // Maximum radius in LIC 13
     public double area2; // Maximum area in LIC 14
-
 }
