@@ -356,11 +356,9 @@ public class AntiMissileSystem {
         // Get lengths between points.
         double ab = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
         double ac = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
-        double bc = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
 
         // If all points are identical
         if (ab == 0 && ac == 0) {
-            System.out.println("Identical!");
             return true;
         }
 
@@ -391,7 +389,7 @@ public class AntiMissileSystem {
             d1 = sqrt(pow(centerx1 - z.x, 2) + pow(centery1 - z.y, 2));
             d2 = sqrt(pow(centerx2 - z.x, 2) + pow(centery2 - z.y, 2));
 
-            if ((d1 <= radius) || (d1 <= radius))
+            if ((d1 <= radius) || (d2 <= radius))
                 return true;
         }
         return false;
