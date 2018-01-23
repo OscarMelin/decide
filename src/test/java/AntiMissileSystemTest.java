@@ -150,6 +150,18 @@ public class AntiMissileSystemTest {
         testSystem = new AntiMissileSystem(numPoints, points1, parameters, null, null);
         assertFalse(testSystem.lic4());
     }
+
+    @Test
+    void testLic7() {
+        // Contract: Lic9 returns true iff there exists at least one set of two data points
+        // separated by exactly K_PTS consecutive intervening points that are a distance greater than the length, LENGTH1, apart.
+        // The condition is not met when NUMPOINTS < 3.
+        int numpoints = 2;
+        Point[] points = {new Point(0.0,0.0), new Point(1.0,1.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numpoints,points,parameters,null,null);
+        assertFalse(testSystem.lic9());
+    }
     
     @Test
     void testLic9() {

@@ -276,7 +276,10 @@ public class AntiMissileSystem {
     }
 
     public boolean lic7() {
-        return false;
+        if(numPoints < 3) {
+            return false;
+        }
+        return true;
     }
 
     public boolean lic8() {
