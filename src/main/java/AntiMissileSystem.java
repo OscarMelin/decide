@@ -1,6 +1,4 @@
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
-import static java.lang.Math.PI;
+import static java.lang.Math.*;
 
 public class AntiMissileSystem {
 
@@ -101,19 +99,36 @@ public class AntiMissileSystem {
      * defined in the parameters, otherwise false is returned
      */
     public boolean lic1() {
+        if (parameters.radius1 < 0) {
+            return false;
+        }
+
         Point a, b, c;
         for (int i = 0; i < this.points.length - 2; i++) {
             a = this.points[i];
             b = this.points[i+1];
             c = this.points[i+2];
 
+            // Length between point a and b
+            double lengthAB = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+            double lengthAC = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+            double lengthBC = sqrt(pow(b.x - c.x, 2) + pow(b.y - c.y, 2));
+
+            // Calculating the radius of the circumcircle
+            double multipliedLengths = lengthAB * lengthAC * lengthBC;
+            double multipliedLengthDiffs =
+                    (lengthAB + lengthAC + lengthBC) *
+                    (lengthAB + lengthAC - lengthBC) *
+                    (lengthAC + lengthBC - lengthAB) *
+                    (lengthBC + lengthAB - lengthAC);
+            double radius = multipliedLengths / sqrt(multipliedLengthDiffs);
+
             // Check if points b or c is inside or on the radius radius1 away from a
-            if (pow(b.x - a.x, 2) + pow(b.y - a.y, 2) <= pow(parameters.radius1, 2) ||
-                    pow(c.x - a.x, 2) + pow(c.y - a.y, 2) <= pow(parameters.radius1, 2)) {
-                return false;
+            if (radius > parameters.radius1) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
   
     /**

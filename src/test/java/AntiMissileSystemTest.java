@@ -53,11 +53,12 @@ public class AntiMissileSystemTest {
     void testLic1() {
         // contract: lic1 returns true if three consecutive data point are not all contained within or on a circle
         // of radius radius1, false otherwise
+
         int numPoints = 3;
         Point[] points = {
-                new Point(0.0, 0.0),
-                new Point(1.0, 0.0),
-                new Point(-1.0, 0.0)
+                new Point(-1.0, 0.0),
+                new Point(0.0, 1.0),
+                new Point(1.0, 0.0)
         };
 
         Parameters parameters = new Parameters();
@@ -65,25 +66,20 @@ public class AntiMissileSystemTest {
 
         assertTrue(antiMissileSystem.lic1());
 
-        antiMissileSystem.parameters.radius1 = 1; // should fail since b and c are in the distance radius 1 from a
+        antiMissileSystem.parameters.radius1 = -1; // negative radius1 is not allowed
+        assertFalse(antiMissileSystem.lic1());
+
+        antiMissileSystem.parameters.radius1 = 1.5; // should fail
         assertFalse(antiMissileSystem.lic1());
 
         // Assigning new points where all points are outside the circle with radius radius1
-        antiMissileSystem.points[0] = new Point(1.0, 1.0);
-        antiMissileSystem.points[1] = new Point(3.0, 1.0);
-        antiMissileSystem.points[2] = new Point(2.0, 2.0);
+        antiMissileSystem.points[0] = new Point(-2.0, 0.0);
+        antiMissileSystem.points[1] = new Point(0.0, 2.0);
+        antiMissileSystem.points[2] = new Point(2.0, 0.0);
         assertTrue(antiMissileSystem.lic1());
 
-        // Assigning new points where only the second one is inside or on the circle with radius radius1
-        antiMissileSystem.points[0] = new Point(1.0, 1.0);
-        antiMissileSystem.points[1] = new Point(3.0, 1.0);
-        antiMissileSystem.points[2] = new Point(2.0, 1.0);
-        assertFalse(antiMissileSystem.lic1());
-
-        // Assigning new points where only the second one is inside or on the circle with radius radius1
-        antiMissileSystem.points[0] = new Point(1.0, 1.0);
-        antiMissileSystem.points[1] = new Point(2.0, 1.0);
-        antiMissileSystem.points[2] = new Point(3.0, 1.0);
+        // A radius of 10 should return false
+        antiMissileSystem.parameters.radius1 = 10;
         assertFalse(antiMissileSystem.lic1());
     }
   
