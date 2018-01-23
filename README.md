@@ -60,4 +60,4 @@ For more detailed information see [closed issues](https://github.com/OscarMelin/
 
 ## Abbreviations
 
-**LIC**: Launch Interceptor Conditions
+**LIC**: Launch Interceptor Condition
