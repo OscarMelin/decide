@@ -452,7 +452,28 @@ public class AntiMissileSystem {
         return (foundLengthGreater && foundLengthShorter);
     }
 
+    /**
+     *
+     * @return There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
+     * intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+     *
+     * In addition, there exists at least one set of three data points (which can be the same or different from the three
+     * data points just mentioned) separated by exactly A PTS and B PTS consecutive intervening points, respectively,
+     * that can be contained in or on a circle of radius RADIUS2.
+     *
+     * Both parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5. 0 ≤ RADIUS2.
+     */
     public boolean lic13() {
+        if(parameters.radius2 <= 0 || numPoints < 5) {
+            return false;
+        }
+        for (int i = 0; i < (numPoints - parameters.aPTS - parameters.bPTS - 2); i++) {
+            int ii = i + parameters.aPTS + 1;
+            int iii = ii + parameters.bPTS + 1;
+
+            if (!inCircle(points[i], points[ii], points[iii], parameters.radius1) && inCircle(points[i], points[ii], points[iii], parameters.radius2))
+                return true;
+        }
         return false;
     }
 
@@ -523,6 +544,11 @@ public class AntiMissileSystem {
         // If all points are identical
         if (lengthAB == 0 && lengthAC == 0)
             return true;
+        // If points form a line
+        if ((a.y - b.y) * (a.x - c.x) == (a.y - c.y) * (a.x - b.x)) {
+            if (lengthAB <= radius && lengthAC <= radius && lengthBC <= radius)
+                return true;
+        }
 
         // Calculating the radius of the circumcircle
         double multipliedLengths = lengthAB * lengthAC * lengthBC;

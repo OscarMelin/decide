@@ -8,21 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AntiMissileSystemTest {
 
     @Test
-    void test1() {
-        //Example of how you can manipulate the parameters.
-        int numPoints = 1;
-        Point[] points = {new Point(20.0, 30.0)};
-        Parameters parameters = new Parameters();
-        Connector[][] lcm = new Connector[15][15];
-        lcm[0][0] = Connector.NOTUSED;
-        lcm[0][1] = Connector.ANDD;
-        boolean[] puv = new boolean[15];
-        AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, lcm, puv);
-
-        assertFalse(antiMissileSystem.decide());
-    }
-  
-    @Test
     void testLic0() {
         // contract: lic0 returns true if two consecutive data point are a greater distance than the length length1
         // defined in the parameters, false otherwise
@@ -294,6 +279,12 @@ public class AntiMissileSystemTest {
         c = new Point(1,1);
         radius = 0.1;
         assertFalse(testSystem.inCircle(a, b, c, radius));
+
+        a = new Point(0,0);
+        b = new Point(1,1);
+        c = new Point(2,2);
+        radius = 10;
+        assertTrue(testSystem.inCircle(a, b, c, radius));
     }
   
     @Test
@@ -335,6 +326,45 @@ public class AntiMissileSystemTest {
         testSystem.parameters.length1 = 2.0;
         testSystem.parameters.length2 = 5.0;
         assertTrue(testSystem.lic12());
+    }
+
+    @Test
+    void testLic13() {
+        // Contract: Lic13 return true if there exists at least one set of three data points, separated by exactly A PTS
+        // and B PTS consecutive intervening points, respectively, that cannot be contained within or on a circle of
+        // radius RADIUS1.
+        //
+        // In addition, there exists at least one set of three data points (which can be the same or different from the three
+        // data points just mentioned) separated by exactly A PTS and B PTS consecutive intervening points, respectively,
+        // that can be contained in or on a circle of radius RADIUS2.
+        //
+        // Both parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5. 0 ≤ RADIUS2.
+
+        int numPoints = 4;
+        Point[] points = {
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0),
+                new Point(2.0, 0.0),
+                new Point(3.0, 0.0),
+                new Point(3.0, 3.0)
+        };
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertFalse(testSystem.lic13());
+
+        testSystem.parameters.radius2 = 0;
+        testSystem.numPoints = 5;
+        assertFalse(testSystem.lic13());
+
+        testSystem.parameters.radius1 = 10;
+        testSystem.parameters.radius2 = 1;
+        testSystem.parameters.aPTS = 0;
+        testSystem.parameters.bPTS = 0;
+        assertFalse(testSystem.lic13());
+
+        testSystem.parameters.radius1 = 1;
+        testSystem.parameters.radius2 = 10;
+        assertTrue(testSystem.lic13());
     }
 
     @Test
