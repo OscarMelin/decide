@@ -199,7 +199,8 @@ public class AntiMissileSystemTest {
         testSystem.parameters.area1 = 1.0;
         assertFalse(testSystem.lic10());
     }
-  
+
+    @Test
     void testLic11() {
         // Contract: Lic11 returns true iff there exists a set of two data points, (X[i],Y[i]) and (X[j],Y[j]),
         // separated by exactly G_PTS consecutive intervening points, such that X[j] - X[i] < 0 (where i < j ).
@@ -238,5 +239,66 @@ public class AntiMissileSystemTest {
         testSystem.parameters.length1 = 2.0;
         testSystem.parameters.length2 = 5.0;
         assertTrue(testSystem.lic12());
+    }
+
+    @Test
+    void testLic14() {
+        // Contract: Lic14 returns true iff there exists at least one set of three data points
+        // separated by exactly E_PTS and F_PTS consecutive intervening points, respectively,
+        // that are the vertices of a triangle with area greater than AREA1. In addition, there
+        // exist three data points (which can be the same or different from the three data points
+        // just mentioned) separated by exactly E PTS and F PTS consecutive intervening points,
+        // respectively, that are the vertices of a triangle with area less than AREA2.
+        // Both parts must be true for the LIC to be true
+        // The condition is not met when NUMPOINTS < 5.
+
+        int numPoints = 4;
+        Point[] points = {
+                new Point(0.0,0.0),
+                new Point(1.0,1.0),
+                new Point(1.0,0.0),
+                new Point(-1.0,-1.0)
+        };
+        Parameters parameters = new Parameters();
+        AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        assertFalse(antiMissileSystem.lic14());
+
+        Point[] newPoints = {
+                new Point(0.0,0.0),
+                new Point(1.0,1.0),
+                new Point(1.0,0.0),
+                new Point(-1.0,-1.0),
+                new Point(1.0,2.0)
+        };
+
+        // The same set of points meet both conditions
+        antiMissileSystem.numPoints++;
+        antiMissileSystem.points = newPoints;
+        antiMissileSystem.parameters.ePTS = 1;
+        antiMissileSystem.parameters.fPTS = 1;
+        antiMissileSystem.parameters.area2 = 2;
+        assertTrue(antiMissileSystem.lic14());
+
+        // points 1, 3, 5 form a triangle with area = 1
+        // points 4, 6, 8 form a triangle with area = 2,5
+        Point[] diffPoints = {
+                new Point(0.0,0.0),
+                new Point(1.0,1.0),
+                new Point(1.0,0.0),
+                new Point(-1.0,-1.0),
+                new Point(1.0,2.0),
+                new Point(-2.0,0.0),
+                new Point(1.0,-1.0),
+                new Point(0.0,2.0)
+        };
+
+        // Different sets of points meet each conditions
+        antiMissileSystem.numPoints = 8;
+        antiMissileSystem.points = diffPoints;
+        antiMissileSystem.parameters.ePTS = 1;
+        antiMissileSystem.parameters.fPTS = 1;
+        antiMissileSystem.parameters.area1 = 0.5;
+        antiMissileSystem.parameters.area2 = 3;
+        assertTrue(antiMissileSystem.lic14());
     }
 }

@@ -422,7 +422,54 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return whether the two following conditions are met.
+     *  - there exists at least one set of three data points
+     * separated by exactly E_PTS and F_PTS consecutive intervening points,
+     * respectively, that are the vertices of a triangle with area
+     * greater than AREA1.
+     * - there exists at least one set of three data points
+     * separated by exactly E_PTS and F_PTS consecutive intervening points,
+     * respectively, that are the vertices of a triangle with area
+     * less than AREA2.
+     * The complete condition is not met when NUMPOINTS < 5.
+     */
     public boolean lic14() {
+        if(numPoints < 5) {
+            return false;
+        }
+
+        boolean foundAreaGreater = false;
+        boolean foundAreaLess = false;
+
+        //Iterate over all sets of three consecutive points separated by E_PTS and F_PTS points
+        for (int i = 0; i < numPoints-2-parameters.ePTS-parameters.fPTS; i++) {
+            Point a = points[i];
+            Point b = points[i+1+parameters.ePTS];
+            Point c = points[i+2+parameters.ePTS+parameters.fPTS];
+
+            // Calculate the sides of the triangle
+            double lengthAB = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+            double lengthAC = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+            double lengthBC = sqrt(pow(b.x - c.x, 2) + pow(b.y - c.y,2));
+
+            // Calculate the area of the triangle using Heron's formula
+            double tmp = (lengthAB + lengthAC + lengthBC) / 2;
+            double area = sqrt(tmp*(tmp - lengthAB) * (tmp - lengthAC) * (tmp - lengthBC));
+
+            if(area > parameters.area1) {
+                foundAreaGreater = true;
+            }
+
+            if(area < parameters.area2) {
+                foundAreaLess = true;
+            }
+
+            if (foundAreaGreater && foundAreaLess) {
+                return true;
+            }
+        }
         return false;
     }
 }
