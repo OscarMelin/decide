@@ -224,13 +224,13 @@ public class AntiMissileSystemTest {
         assertFalse(testSystem.lic8());
 
         // Add consecutive intervening points
-        numPoints = 5;
+        numPoints = 6;
         Point[] points2 = {
-                new Point(-1.0, 0.0), new Point(1.5, 0.5),
+                new Point(-1.0, 0.0), new Point(1.5, 0.5), new Point(1.5, -0.5),
                 new Point(0.0, 1.0), new Point(-1.5, 0.5),
                 new Point(1.0, 0.0)
         };
-        parameters.aPTS = 1;
+        parameters.aPTS = 2;
         parameters.bPTS = 1;
 
         // Small radius
@@ -238,21 +238,16 @@ public class AntiMissileSystemTest {
         testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
         assertTrue(testSystem.lic8());
 
-        // Points will be on the line of the radius
-        parameters.radius1 = 1;
-        testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
-        assertFalse(testSystem.lic8());
-
         // Big radius
-        parameters.radius1 = 2;
+        parameters.radius1 = 2.0;
         testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
         assertFalse(testSystem.lic8());
 
         // Assigning new points where all points are outside the circle with radius radius1
-        parameters.radius1 = 1;
+        parameters.radius1 = 1.0;
         points2[0] = new Point(-2.0, 0.0);
-        points2[2] = new Point(0.0, 2.0);
-        points2[4] = new Point(2.0, 0.0);
+        points2[3] = new Point(0.0, 2.0);
+        points2[5] = new Point(2.0, 0.0);
         testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
         assertTrue(testSystem.lic8());
 
