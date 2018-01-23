@@ -151,6 +151,34 @@ public class AntiMissileSystemTest {
         testSystem = new AntiMissileSystem(numPoints, points1, parameters, null, null);
         assertFalse(testSystem.lic4());
     }
+
+    @Test
+    void testLic5() {
+        // Contract: Lic5 returns true iff there exists at least one set of two data points
+        // [X(i), Y(i)], [X(j), Y(j)] where X(j) - X(i) < 0 and i = j-1
+
+        int numpoints = 1;
+        Point[] points = {new Point(0.0,0.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numpoints,points,parameters,null,null);
+        assertFalse(testSystem.lic5());
+
+        numpoints++;
+        Point[] invalidPoints = {new Point(0.0,0.0), new Point(1.0,0.0)};
+        parameters = new Parameters();
+        testSystem = new AntiMissileSystem(numpoints,invalidPoints,parameters,null,null);
+        assertFalse(testSystem.lic5());
+
+        Point[] invalidXPoints = {new Point(0.0,1.0), new Point(0.0,1.0)};
+        parameters = new Parameters();
+        testSystem = new AntiMissileSystem(numpoints,invalidXPoints,parameters,null,null);
+        assertFalse(testSystem.lic5());
+
+        Point[] validPoints = {new Point(1.0,0.0), new Point(0.0,0.0)};
+        parameters = new Parameters();
+        testSystem = new AntiMissileSystem(numpoints,validPoints,parameters,null,null);
+        assertTrue(testSystem.lic5());
+    }
     
     @Test
     void testLic9() {
