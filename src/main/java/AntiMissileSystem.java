@@ -145,9 +145,6 @@ public class AntiMissileSystem {
             return false;
         }
 
-        //Point[] consecPoints = new Point[parameters.qPts];
-
-
         //Iterate over all sets of qPts consecutive points
         for (int i = 0; i <= numPoints-parameters.qPts; i++) {
             ArrayList<Point> consecPoints = new ArrayList<Point>();

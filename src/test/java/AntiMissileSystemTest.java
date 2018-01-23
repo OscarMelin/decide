@@ -1,6 +1,10 @@
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import static java.lang.Math.PI;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class AntiMissileSystemTest {
 
@@ -45,25 +49,25 @@ public class AntiMissileSystemTest {
         // Q_PTS consecutive data points that lie in more than QUADS quadrants.
 
         int numPoints = 4;
-        Point[] points = {new Point(1.0, 1.0), new Point(1.0, -1.0), new Point(-1.0, 1.0), new Point(-1.0, -1.0)};
+        Point[] points1 = {new Point(1.0, 1.0), new Point(1.0, -1.0), new Point(-1.0, 1.0), new Point(-1.0, -1.0)};
         Parameters parameters = new Parameters();
 
         parameters.qPts = 2;
         parameters.qUads = 2;
-        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points1, parameters, null, null);
+        assertFalse(testSystem.lic4());
+
+        parameters.qPts = 3;
+        testSystem = new AntiMissileSystem(numPoints, points1, parameters, null, null);
         assertTrue(testSystem.lic4());
 
-        /*parameters.qUads = 3;
-        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
-        assertTrue(testSystem.lic4());
-
+        parameters.qUads = 3;
         parameters.qPts = numPoints;
-        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        testSystem = new AntiMissileSystem(numPoints, points1, parameters, null, null);
         assertTrue(testSystem.lic4());
 
         parameters.qPts = 2;
-        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
-        assertFalse(testSystem.lic4());*/
-
+        testSystem = new AntiMissileSystem(numPoints, points1, parameters, null, null);
+        assertFalse(testSystem.lic4());
     }
 }
