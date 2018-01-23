@@ -23,3 +23,19 @@ After an instance has been created simply call the ```decide()```method and an a
 ### Testing
 
 The anti-ballistic system has been tested using happy path tests, all of which can be found in the ```AntiMissileSystemTest``` class in the ```test``` subfolder.
+
+### Contributions
+
+- **Johannes Westlund**
+  - Helped create the skeleton for the project.
+  - Implemented the requirements of LIC 2.
+  - Implemented the requirements of LIC 3
+  - Implemented the requirements of LIC 9
+  - Implemented the requirements of LIC 10
+  - Implemented the requirements of LIC 11
+  - Implemented the requirements of LIC 12
+
+
+### Abbreviations
+
+**LIC**: Launch Interceptor Conditions
