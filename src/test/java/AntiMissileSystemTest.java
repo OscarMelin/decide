@@ -160,7 +160,18 @@ public class AntiMissileSystemTest {
         Point[] points = {new Point(0.0,0.0), new Point(1.0,1.0)};
         Parameters parameters = new Parameters();
         AntiMissileSystem testSystem = new AntiMissileSystem(numpoints,points,parameters,null,null);
-        assertFalse(testSystem.lic9());
+        assertFalse(testSystem.lic7());
+
+        testSystem.numPoints++;
+        Point[] unvalidPoints = {new Point(0.0,0.0), new Point(1.0,0.0), new Point(0.0,1.0)};
+        testSystem.points = unvalidPoints;
+        testSystem.parameters.kPTS = 1;
+        testSystem.parameters.length1 = 2.0;
+        assertFalse(testSystem.lic7());
+
+        Point[] validPoints = {new Point(0.0,0.0), new Point(3.0,0.0), new Point(5.0,0.0)};
+        testSystem.points = validPoints;
+        assertTrue(testSystem.lic7());
     }
     
     @Test
