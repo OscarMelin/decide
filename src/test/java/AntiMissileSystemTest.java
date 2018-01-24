@@ -618,7 +618,7 @@ public class AntiMissileSystemTest {
 
         int numPoints = 1;
         Parameters parameters = new Parameters();
-        Point[] points = {new Point(1.0,1.0)};
+        Point[] points = {new Point(1.0, 1.0)};
         boolean[] puv = new boolean[15];
         boolean[] fuv;
 
@@ -635,6 +635,7 @@ public class AntiMissileSystemTest {
         testSystem = new AntiMissileSystem(numPoints, points, parameters, null, puv);
         testSystem.generateFUV();
         assertFalse(testSystem.areAllTrue(testSystem.fuv));
+    }
 
     @Test
     void testPopulatePUM() {
