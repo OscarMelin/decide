@@ -63,6 +63,13 @@ The anti-ballistic system has been tested using happy path tests, all of which c
    - Implemented the requirements of LIC 4.
    - Implemented the requirements of LIC 8.
   
+- **Oscar Melin**
+   - Helped create the skeleton for the project.
+   - Implemented requirements of LIC 13.
+   - Implemented global helper function inCircle.
+   - Code review and test writing.
+   - All around inspiration to team.
+  
 For more detailed information see [closed issues](https://github.com/OscarMelin/decide/issues?q=is%3Aissue+is%3Aclosed).
 
 ## Abbreviations
