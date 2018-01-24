@@ -10,7 +10,7 @@ public class AntiMissileSystemTest {
 
     @Test
     void decide() {
-        // Contract: Decide returns true iff all values in FUV are true, else otherwise
+        // Contract: Decide returns true iff all values in FUV are true, false otherwise
         AntiMissileSystem antiMissileSystem = new AntiMissileSystem(
                 0,
                 null,
