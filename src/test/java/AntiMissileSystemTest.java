@@ -529,6 +529,21 @@ public class AntiMissileSystemTest {
 
     @Test
     void testFuv() {
-        // Contract: creates an array of length 15, each element 
+        // Contract: creates an array of length 15, each element is a boolean.
+        // The element FUV[i] is set to true iff
+        // - PUV[i] is false or
+        // - if all elements in PUM row are true.
+
+        int numPoints = 1;
+        Parameters parameters = new Parameters();
+        Point[] points = {new Point(1.0,1.0)};
+        boolean[] puv;
+        boolean[][] pum = new boolean[15][15];
+        boolean[] fuv = new boolean[15];
+
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, puv);
+        testSystem.generateFUV();
+        fuv = testSystem.fuv;
+
     }
 }
