@@ -113,7 +113,12 @@ public class AntiMissileSystem {
         }
     }
 
-    public void generateFUV() {}
+    public void generateFUV() {
+        for (int i = 0; i < 15; i++) {
+            if (!puv[i] || areAllTrue(pum[i]))
+                fuv[i] = true;
+        }
+    }
 
     /**
      *
@@ -685,5 +690,11 @@ public class AntiMissileSystem {
         if (r <= radius)
             return true;
         return false;
+    }
+
+    public boolean areAllTrue(boolean[] array)
+    {
+        for(boolean b : array) if(!b) return false;
+        return true;
     }
 }

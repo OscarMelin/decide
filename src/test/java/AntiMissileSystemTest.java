@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -316,7 +318,8 @@ public class AntiMissileSystemTest {
         testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
         assertTrue(testSystem.lic8());
     }
-    
+
+ 
     @Test
     void testLic9() {
         // Contract: Lic9 returns true iff there exists a set of three consecutive points
@@ -605,6 +608,33 @@ public class AntiMissileSystemTest {
         };
         assertArrayEquals(bosse, antiMissileSystem.cmv);
     }
+
+    @Test
+    void testFuv() {
+        // Contract: creates an array of length 15, each element is a boolean.
+        // The element FUV[i] is set to true iff
+        // - PUV[i] is false or
+        // - if all elements in PUM row are true.
+
+        int numPoints = 1;
+        Parameters parameters = new Parameters();
+        Point[] points = {new Point(1.0,1.0)};
+        boolean[] puv = new boolean[15];
+        boolean[] fuv;
+
+
+        // PUV is false
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, puv);
+        Arrays.fill(testSystem.pum[0], true);
+        testSystem.generateFUV();
+        fuv = testSystem.fuv;
+        assertTrue(testSystem.areAllTrue(fuv));
+
+        // PUV is true
+        Arrays.fill(puv, true);
+        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, puv);
+        testSystem.generateFUV();
+        assertFalse(testSystem.areAllTrue(testSystem.fuv));
 
     @Test
     void testPopulatePUM() {
