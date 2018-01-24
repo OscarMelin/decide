@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -537,13 +539,23 @@ public class AntiMissileSystemTest {
         int numPoints = 1;
         Parameters parameters = new Parameters();
         Point[] points = {new Point(1.0,1.0)};
-        boolean[] puv;
-        boolean[][] pum = new boolean[15][15];
-        boolean[] fuv = new boolean[15];
+        boolean[] puv = new boolean[15];
+        boolean[] fuv;
 
+
+        // PUV is false
         AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points, parameters, null, puv);
+        Arrays.fill(testSystem.pum[0], true);
         testSystem.generateFUV();
         fuv = testSystem.fuv;
+        assertTrue(testSystem.areAllTrue(fuv));
+
+        // PUV is true
+        Arrays.fill(puv, true);
+        testSystem = new AntiMissileSystem(numPoints, points, parameters, null, puv);
+        testSystem.generateFUV();
+        assertFalse(testSystem.areAllTrue(testSystem.fuv));
+
 
     }
 }
