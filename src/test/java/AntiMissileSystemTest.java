@@ -167,6 +167,35 @@ public class AntiMissileSystemTest {
     }
 
     @Test
+    void testLic6() {
+        // Contract: Lic6 returns true iff there exists N PTS consecutive data points
+        // such that at least one of the points lies a distance greater than DIST from
+        // the line joining the first and last of these N PTS points.
+        // The condition is not met when NUMPOINTS < 3.
+        int numpoints = 2;
+        Point[] points1 = {new Point(0.0,0.0), new Point(1.0,1.0)};
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numpoints,points1,parameters,null,null);
+        assertFalse(testSystem.lic6());
+
+        numpoints ++;
+        parameters.nPTS = 3;
+        parameters.dist = 3;
+        Point[] points2 = {new Point(0.0,0.0), new Point(1.0,2.0), new Point(3.0, 0.0)};
+        testSystem = new AntiMissileSystem(numpoints,points2,parameters,null,null);
+        assertFalse(testSystem.lic6());
+
+        parameters.dist = 0;
+        testSystem = new AntiMissileSystem(numpoints,points2,parameters,null,null);
+        assertTrue(testSystem.lic6());
+
+        parameters.dist = 1;
+        Point[] points3 = {new Point(0.0,0.0), new Point(2.0,2.0), new Point(0.0, 0.0)};
+        testSystem = new AntiMissileSystem(numpoints,points3,parameters,null,null);
+        assertTrue(testSystem.lic6());
+    }
+
+    @Test
     void testLic7() {
         // Contract: Lic9 returns true iff there exists at least one set of two data points
         // separated by exactly K_PTS consecutive intervening points that are a distance greater than the length, LENGTH1, apart.

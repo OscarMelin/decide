@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.PI;
+import static java.lang.Math.abs;
 
 public class AntiMissileSystem {
 
@@ -303,7 +304,52 @@ public class AntiMissileSystem {
         return false;
     }
 
+    /**
+     *
+     * @return true iff there exists at least one set of N PTS consecutive data points
+     * such that at least one of the points lies a distance greater than DIST from the
+     * line joining the first and last of these N PTS points
+     * When NUMPOINTS < 3, the condition is not met.
+     *
+     */
     public boolean lic6() {
+        if (numPoints < 3) {
+            return false;
+        }
+        for(int index = 0; index < numPoints - parameters.nPTS + 1; index++) {
+            Point[] consecutivePoints = new Point[parameters.nPTS];
+
+            for(int p = 0; p < parameters.nPTS; p++){
+                consecutivePoints[p] = this.points[index + p];
+            }
+
+            Point first = consecutivePoints[0];
+            Point last = consecutivePoints[parameters.nPTS-1];
+
+            if (first.x == last.x && first.y == last.y){
+                for (int c = 0; c < parameters.nPTS - 1; c++) {
+                    Point point = consecutivePoints[c];
+
+                    double distance = sqrt(pow(point.y - first.y, 2) + pow(point.x - first.x, 2));
+                    if (distance > parameters.dist) {
+                        return true;
+                    }
+                }
+            } else {
+                for (int c = 1; c < parameters.nPTS - 1; c++) {
+                    Point point = consecutivePoints[c];
+
+                    double numinator = abs((last.y - first.y) * point.x - (last.x - first.x) * point.y + last.x * first.y - last.y * first.x);
+                    double denuminator = sqrt(pow(last.y - first.y, 2) + pow(last.x - first.x, 2));
+
+                    double distance = numinator / denuminator;
+
+                    if (distance > parameters.dist) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
     /**
