@@ -167,7 +167,7 @@ public class AntiMissileSystemTest {
 
     @Test
     void testLic6() {
-        // Contract: Lic7 returns true iff there exists N PTS consecutive data points
+        // Contract: Lic6 returns true iff there exists N PTS consecutive data points
         // such that at least one of the points lies a distance greater than DIST from
         // the line joining the first and last of these N PTS points.
         // The condition is not met when NUMPOINTS < 3.
