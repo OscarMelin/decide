@@ -9,6 +9,56 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AntiMissileSystemTest {
 
     @Test
+    void decide() {
+        // Contract: Decide returns true iff all values in FUV are true, else otherwise
+        AntiMissileSystem antiMissileSystem = new AntiMissileSystem(
+                0,
+                null,
+                null,
+                null,
+                null);
+        antiMissileSystem.fuv = new boolean[]{
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+        };
+
+        assertTrue(antiMissileSystem.decide());
+
+        boolean[] newFuv = new boolean[]{
+                true,
+                true,
+                true,
+                true,
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+        };
+        antiMissileSystem.fuv = newFuv;
+        assertFalse(antiMissileSystem.decide());
+    }
+
+    @Test
     void testLic0() {
         // contract: lic0 returns true if two consecutive data point are a greater distance than the length length1
         // defined in the parameters, false otherwise
