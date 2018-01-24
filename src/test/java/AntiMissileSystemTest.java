@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -190,9 +191,53 @@ public class AntiMissileSystemTest {
 
     @Test
     void testLic8() {
+        // Contract: There exists at least one set of three data points
+        // separated by exactly A PTS and B PTS consecutive intervening
+        // points, respectively, that cannot be contained within or on a
+        // circle of radius RADIUS1. The condition is not met when
+        // NUMPOINTS < 5.
+        //1≤A PTS,1≤B PTS
+        //A PTS+B PTS ≤ (NUMPOINTS−3)
 
+        int numPoints = 3;
+        Point[] points1 = {
+                new Point(-1.0, 0.0),
+                new Point(0.0, 1.0),
+                new Point(1.0, 0.0)
+        };
+        Parameters parameters = new Parameters();
+        AntiMissileSystem testSystem = new AntiMissileSystem(numPoints, points1, parameters, null, null);
+        assertFalse(testSystem.lic8());
+
+        // Add consecutive intervening points
+        numPoints = 6;
+        Point[] points2 = {
+                new Point(-1.0, 0.0), new Point(1.5, 0.5), new Point(1.5, -0.5),
+                new Point(0.0, 1.0), new Point(-1.5, 0.5),
+                new Point(1.0, 0.0)
+        };
+        parameters.aPTS = 2;
+        parameters.bPTS = 1;
+
+        // Small radius
+        parameters.radius1 = 0.5;
+        testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
+        assertTrue(testSystem.lic8());
+
+        // Big radius
+        parameters.radius1 = 2.0;
+        testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
+        assertFalse(testSystem.lic8());
+
+        // Assigning new points where all points are outside the circle with radius radius1
+        parameters.radius1 = 1.0;
+        points2[0] = new Point(-2.0, 0.0);
+        points2[3] = new Point(0.0, 2.0);
+        points2[5] = new Point(2.0, 0.0);
+        testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
+        assertTrue(testSystem.lic8());
     }
-    
+
     @Test
     void testLic9() {
         // Contract: Lic9 returns true iff there exists a set of three consecutive points
@@ -426,5 +471,64 @@ public class AntiMissileSystemTest {
         antiMissileSystem.parameters.area1 = 0.5;
         antiMissileSystem.parameters.area2 = 3;
         assertTrue(antiMissileSystem.lic14());
+    }
+
+    @Test
+    void testPopulateCMV() {
+        // Contract: global variable cmv gets populated with boolean values.
+        Parameters parameters = new Parameters();
+        int numPoints = 5;
+        Point[] points = {
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0),
+                new Point(2.0, 0.0),
+                new Point(3.0, 0.0),
+                new Point(3.0, 3.0)
+        };
+        AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
+        antiMissileSystem.parameters.radius1 = 1;
+        antiMissileSystem.parameters.radius2 = 10;
+        antiMissileSystem.parameters.qUads = 1;
+        antiMissileSystem.parameters.aPTS = 1;
+        antiMissileSystem.parameters.bPTS = 1;
+        antiMissileSystem.parameters.cPTS = 1;
+        antiMissileSystem.parameters.dPTS = 1;
+        antiMissileSystem.parameters.ePTS = 1;
+        antiMissileSystem.parameters.fPTS = 1;
+        antiMissileSystem.parameters.gPTS = 1;
+        antiMissileSystem.parameters.kPTS = 1;
+        antiMissileSystem.parameters.nPTS = 3;
+        antiMissileSystem.parameters.dist = 1.5;
+        antiMissileSystem.parameters.area2 = 2;
+
+        for (int i = 0; i < 15; i++) {
+            assertFalse(antiMissileSystem.cmv[i]);
+        }
+
+        antiMissileSystem.populateCMV();
+
+        boolean[] bosse = {
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                true,
+                false,
+                true,
+                true,
+                false,
+                false,
+                true,
+                false
+        };
+        assertArrayEquals(bosse, antiMissileSystem.cmv);
+    }
+
+    @Test
+    void testFuv() {
+        // Contract: creates an array of length 15, each element 
     }
 }

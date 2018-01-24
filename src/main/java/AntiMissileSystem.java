@@ -26,7 +26,7 @@ public class AntiMissileSystem {
     public boolean[] puv;
 
     // The Conditions Met Vector (CMV) is set according to the results of each LIC.
-    private boolean[] cmv = new boolean[15];
+    public boolean[] cmv = new boolean[15];
 
     // The combination of LCM and CMV is stored in the
     // Preliminary Unlocking Matrix (PUM), a 15x15 symmetric matrix.
@@ -70,6 +70,24 @@ public class AntiMissileSystem {
     //TODO: The actual return value should be a string of either "YES" or "NO"
     public boolean decide() {
         return false;
+    }
+
+    public void populateCMV() {
+        cmv[0] = lic0();
+        cmv[1] = lic1();
+        cmv[2] = lic2();
+        cmv[3] = lic3();
+        cmv[4] = lic4();
+        cmv[5] = lic5();
+        cmv[6] = lic6();
+        cmv[7] = lic7();
+        cmv[8] = lic8();
+        cmv[9] = lic9();
+        cmv[10] = lic10();
+        cmv[11] = lic11();
+        cmv[12] = lic12();
+        cmv[13] = lic13();
+        cmv[14] = lic14();
     }
 
     public void generatePUM() {}
@@ -313,7 +331,45 @@ public class AntiMissileSystem {
         return false;
     }
 
+
+    /**
+     *
+     * @return There exists at least one set of three data points separated by exactly
+     * A_PTS and B_PTS consecutive intervening points, respectively, that cannot be
+     * contained within or on a circle of radius RADIUS1. The condition is not met when
+     * NUMPOINTS < 5.
+     * 1≤A_PTS,1≤B_PTS
+     * A_PTS+B_PTS ≤ (NUMPOINTS−3)
+     */
     public boolean lic8() {
+        // Assure no boundaries are broken
+        if (numPoints < 5 || parameters.aPTS < 1 || parameters.bPTS < 1) {
+            return false;
+        }
+
+        if (parameters.aPTS + parameters.bPTS > numPoints - 3) {
+            return false;
+        }
+
+        if (parameters.radius1 < 0) {
+            return false;
+        }
+
+        boolean partOfCircle;
+
+        //Iterate over all sets of three consecutive points separated by A_PTS and B_PTS points
+        for (int i = 0; i < numPoints-2-parameters.aPTS-parameters.bPTS; i++) {
+            Point point1 = points[i];
+            Point point2 = points[i + 1 + parameters.aPTS];
+            Point point3 = points[i + 2 + parameters.aPTS + parameters.bPTS];
+
+            partOfCircle = inCircle(point1, point2, point3, parameters.radius1);
+
+            if (!partOfCircle) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -560,7 +616,7 @@ public class AntiMissileSystem {
         double r = multipliedLengths / sqrt(multipliedLengthDiffs);
 
         // Check if points b or c is inside or on the radius radius1 away from a
-        if (r < radius)
+        if (r <= radius)
             return true;
         return false;
     }
