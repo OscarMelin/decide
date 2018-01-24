@@ -313,7 +313,45 @@ public class AntiMissileSystem {
         return false;
     }
 
+
+    /**
+     *
+     * @return There exists at least one set of three data points separated by exactly
+     * A_PTS and B_PTS consecutive intervening points, respectively, that cannot be
+     * contained within or on a circle of radius RADIUS1. The condition is not met when
+     * NUMPOINTS < 5.
+     * 1≤A_PTS,1≤B_PTS
+     * A_PTS+B_PTS ≤ (NUMPOINTS−3)
+     */
     public boolean lic8() {
+        // Assure no boundaries are broken
+        if (numPoints < 5 || parameters.aPTS < 1 || parameters.bPTS < 1) {
+            return false;
+        }
+
+        if (parameters.aPTS + parameters.bPTS > numPoints - 3) {
+            return false;
+        }
+
+        if (parameters.radius1 < 0) {
+            return false;
+        }
+
+        boolean partOfCircle;
+
+        //Iterate over all sets of three consecutive points separated by A_PTS and B_PTS points
+        for (int i = 0; i < numPoints-2-parameters.aPTS-parameters.bPTS; i++) {
+            Point point1 = points[i];
+            Point point2 = points[i + 1 + parameters.aPTS];
+            Point point3 = points[i + 2 + parameters.aPTS + parameters.bPTS];
+
+            partOfCircle = inCircle(point1, point2, point3, parameters.radius1);
+
+            if (!partOfCircle) {
+                return true;
+            }
+        }
+
         return false;
     }
 
