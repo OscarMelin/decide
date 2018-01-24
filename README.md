@@ -65,8 +65,8 @@ The anti-ballistic system has been tested using happy path tests, all of which c
   
 - **Oscar Melin**
    - Helped create the skeleton for the project.
-   - Implemented requirements of LIC 13.
-   - Implemented global helper function inCircle.
+   - Implemented requirements of LIC 13 and generateFUV.
+   - Implemented global helper function inCircle and areAllTrue.
    - Code review and test writing.
    - All around inspiration to team.
   
