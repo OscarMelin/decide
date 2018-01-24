@@ -235,7 +235,6 @@ public class AntiMissileSystemTest {
         points2[5] = new Point(2.0, 0.0);
         testSystem = new AntiMissileSystem(numPoints, points2, parameters, null, null);
         assertTrue(testSystem.lic8());
-
     }
     
     @Test
