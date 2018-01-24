@@ -465,16 +465,16 @@ public class AntiMissileSystemTest {
                 true,
                 false,
                 false,
+                false,
                 true,
-                true,
-                true,
+                false,
                 true,
                 true,
                 false,
                 false,
                 true,
-                true
+                false
         };
-        assertArrayEquals(antiMissileSystem.cmv, bosse);
+        assertArrayEquals(bosse, antiMissileSystem.cmv);
     }
 }
