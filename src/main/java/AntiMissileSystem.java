@@ -36,7 +36,7 @@ public class AntiMissileSystem {
     // The Final Unlocking Vector (FUV) is a 15-element vector.
     // If, and only if, all the values in the FUV are true the launch-unlock
     // signal should be generated.
-    private boolean[] fuv = new boolean[15];
+    public boolean[] fuv = new boolean[15];
 
     /**
      * Main method. Do not write anything here to make it easy to test.
@@ -66,11 +66,15 @@ public class AntiMissileSystem {
 
     /**
      *
-     * @return whether an interceptor should be launched
+     * @return whether an interceptor should be launched depending on if all values in the FUV array are true
      */
-    //TODO: The actual return value should be a string of either "YES" or "NO"
     public boolean decide() {
-        return false;
+        for (int i = 0; i < fuv.length; i++) {
+            if (fuv[i] == false) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void populateCMV() {
