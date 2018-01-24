@@ -30,12 +30,12 @@ public class AntiMissileSystem {
 
     // The combination of LCM and CMV is stored in the
     // Preliminary Unlocking Matrix (PUM), a 15x15 symmetric matrix.
-    private boolean[][] pum = new boolean[15][15];
+    public boolean[][] pum = new boolean[15][15];
 
     // The Final Unlocking Vector (FUV) is a 15-element vector.
     // If, and only if, all the values in the FUV are true the launch-unlock
     // signal should be generated.
-    private boolean[] fuv = new boolean[15];
+    public boolean[] fuv = new boolean[15];
 
     /**
      * Main method. Do not write anything here to make it easy to test.
@@ -92,7 +92,12 @@ public class AntiMissileSystem {
 
     public void generatePUM() {}
 
-    public void generateFUV() {}
+    public void generateFUV() {
+        for (int i = 0; i < 15; i++) {
+            if (!puv[i] || areAllTrue(pum[i]))
+                fuv[i] = true;
+        }
+    }
 
     /**
      *
@@ -619,5 +624,11 @@ public class AntiMissileSystem {
         if (r <= radius)
             return true;
         return false;
+    }
+
+    private boolean areAllTrue(boolean[] array)
+    {
+        for(boolean b : array) if(!b) return false;
+        return true;
     }
 }
