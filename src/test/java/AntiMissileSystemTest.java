@@ -579,9 +579,9 @@ public class AntiMissileSystemTest {
         antiMissileSystem.parameters.fPTS = 1;
         antiMissileSystem.parameters.gPTS = 1;
         antiMissileSystem.parameters.kPTS = 1;
-        antiMissileSystem.parameters.nPTS = 3;
+        antiMissileSystem.parameters.nPTS = 5;
         antiMissileSystem.parameters.dist = 1.5;
-        antiMissileSystem.parameters.area2 = 2;
+        antiMissileSystem.parameters.area2 = 4;
 
         for (int i = 0; i < 15; i++) {
             assertFalse(antiMissileSystem.cmv[i]);
@@ -596,15 +596,15 @@ public class AntiMissileSystemTest {
                 true,
                 false,
                 false,
-                false,
-                true,
-                false,
                 true,
                 true,
+                true,
+                true,
+                true,
                 false,
                 false,
                 true,
-                false
+                true
         };
         assertArrayEquals(bosse, antiMissileSystem.cmv);
     }
