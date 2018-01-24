@@ -439,10 +439,17 @@ public class AntiMissileSystemTest {
         AntiMissileSystem antiMissileSystem = new AntiMissileSystem(numPoints, points, parameters, null, null);
         antiMissileSystem.parameters.radius1 = 1;
         antiMissileSystem.parameters.radius2 = 10;
-        antiMissileSystem.parameters.aPTS = 0;
-        antiMissileSystem.parameters.bPTS = 0;
+        antiMissileSystem.parameters.qUads = 1;
+        antiMissileSystem.parameters.aPTS = 1;
+        antiMissileSystem.parameters.bPTS = 1;
+        antiMissileSystem.parameters.cPTS = 1;
+        antiMissileSystem.parameters.dPTS = 1;
         antiMissileSystem.parameters.ePTS = 1;
         antiMissileSystem.parameters.fPTS = 1;
+        antiMissileSystem.parameters.gPTS = 1;
+        antiMissileSystem.parameters.kPTS = 1;
+        antiMissileSystem.parameters.nPTS = 3;
+        antiMissileSystem.parameters.dist = 1.5;
         antiMissileSystem.parameters.area2 = 2;
 
         for (int i = 0; i < 15; i++) {
@@ -451,7 +458,23 @@ public class AntiMissileSystemTest {
 
         antiMissileSystem.populateCMV();
 
-        boolean[] bosse = {true, true, true, true, false, false, false, true, false, true, true, false, false, true, false};
+        boolean[] bosse = {
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                true,
+                true
+        };
         assertArrayEquals(antiMissileSystem.cmv, bosse);
     }
 }
